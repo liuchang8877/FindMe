@@ -17,7 +17,8 @@ there are some function not adding.
 
 welcome to discussing with me
 
-Email:liuchang8877@gmail.com \n
+Email:liuchang8877@gmail.com     
+
 http://firefrog.sinaapp.com/
 
 
