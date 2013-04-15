@@ -23,3 +23,9 @@
 @end
 
 
+@implementation userLocation
+@synthesize tel;
+@synthesize x;
+@synthesize y;
+
+@end
