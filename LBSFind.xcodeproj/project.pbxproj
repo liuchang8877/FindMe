@@ -85,6 +85,10 @@
 		5AB8CCF1171C0D1900605AED /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCE3171C0D1900605AED /* SBJsonTokeniser.m */; };
 		5AB8CCF2171C0D1900605AED /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCE5171C0D1900605AED /* SBJsonUTF8Stream.m */; };
 		5AB8CCF3171C0D1900605AED /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCE7171C0D1900605AED /* SBJsonWriter.m */; };
+		5AB8CCFA171C175900605AED /* UserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCF5171C175900605AED /* UserLoginViewController.m */; };
+		5AB8CCFB171C175900605AED /* UserLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AB8CCF6171C175900605AED /* UserLoginViewController.xib */; };
+		5AB8CCFC171C175900605AED /* UserRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCF8171C175900605AED /* UserRegisterViewController.m */; };
+		5AB8CCFD171C175900605AED /* UserRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AB8CCF9171C175900605AED /* UserRegisterViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -267,6 +271,12 @@
 		5AB8CCE5171C0D1900605AED /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		5AB8CCE6171C0D1900605AED /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		5AB8CCE7171C0D1900605AED /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		5AB8CCF4171C175900605AED /* UserLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLoginViewController.h; sourceTree = "<group>"; };
+		5AB8CCF5171C175900605AED /* UserLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLoginViewController.m; sourceTree = "<group>"; };
+		5AB8CCF6171C175900605AED /* UserLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserLoginViewController.xib; sourceTree = "<group>"; };
+		5AB8CCF7171C175900605AED /* UserRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRegisterViewController.h; sourceTree = "<group>"; };
+		5AB8CCF8171C175900605AED /* UserRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegisterViewController.m; sourceTree = "<group>"; };
+		5AB8CCF9171C175900605AED /* UserRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserRegisterViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +313,12 @@
 		5A53FCFD171938F1004649F6 /* login */ = {
 			isa = PBXGroup;
 			children = (
+				5AB8CCF4171C175900605AED /* UserLoginViewController.h */,
+				5AB8CCF5171C175900605AED /* UserLoginViewController.m */,
+				5AB8CCF6171C175900605AED /* UserLoginViewController.xib */,
+				5AB8CCF7171C175900605AED /* UserRegisterViewController.h */,
+				5AB8CCF8171C175900605AED /* UserRegisterViewController.m */,
+				5AB8CCF9171C175900605AED /* UserRegisterViewController.xib */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -842,6 +858,8 @@
 				5A7D3E99171687DF00AC728F /* AMap.bundle in Resources */,
 				5A7D3E9C171687DF00AC728F /* AMap.bundle in Resources */,
 				5A7D3EB117168ABD00AC728F /* MXSMapListViewController.xib in Resources */,
+				5AB8CCFB171C175900605AED /* UserLoginViewController.xib in Resources */,
+				5AB8CCFD171C175900605AED /* UserRegisterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -900,6 +918,8 @@
 				5AB8CCF1171C0D1900605AED /* SBJsonTokeniser.m in Sources */,
 				5AB8CCF2171C0D1900605AED /* SBJsonUTF8Stream.m in Sources */,
 				5AB8CCF3171C0D1900605AED /* SBJsonWriter.m in Sources */,
+				5AB8CCFA171C175900605AED /* UserLoginViewController.m in Sources */,
+				5AB8CCFC171C175900605AED /* UserRegisterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
