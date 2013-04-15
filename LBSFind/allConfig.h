@@ -12,6 +12,7 @@
 
 
 #define DB_FILE_NAME   @"findmap.sqlite"
-#define URL_IP   @"218.28.20.140"
-#define URL_PORT   @"81"
+
+
+
 #endif

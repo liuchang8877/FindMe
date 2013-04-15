@@ -94,7 +94,7 @@
     MACoordinateSpan span = {0.04,0.03};
     MACoordinateRegion region = {center,span};
     [myMainMapView setRegion:region animated:NO];
-
+    
     self.search = [[MASearch alloc] initWithSearchKey:SearchKey Delegate:self];
     
     subViewController = [[BaseMapViewController alloc] init];
