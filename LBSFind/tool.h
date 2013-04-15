@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class userLocation;
+
 @interface tool : NSObject
 
-
-+ (void)setTheLocation:(userLocation *)myLocation;
 @end

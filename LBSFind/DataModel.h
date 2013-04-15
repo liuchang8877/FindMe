@@ -31,18 +31,3 @@
 @property (nonatomic, retain)NSDate      *locaDate;
 
 @end
-
-
-//userlocation info
-@interface userLocation : NSObject
-{
-    NSString    *tel;             //tel
-    NSString    *x;               //location in user coordinate x
-    NSString    *y;               //location in user coordinate y
-
-}
-@property (nonatomic, retain)NSString    *tel;
-@property (nonatomic, retain)NSString    *x;
-@property (nonatomic, retain)NSString    *y;
-
-@end

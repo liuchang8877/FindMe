@@ -8,8 +8,6 @@
 
 #import "ViewController.h"
 #import "MAMapKit.h"
-#import "tool.h"
-#import "DataModel.h"
 #define PI 3.1415926
 enum{
     OverlayViewControllerOverlayTypeCircle = 0,
@@ -262,17 +260,17 @@ enum{
     
     UIBarButtonItem *itemRect = [[UIBarButtonItem alloc] initWithCustomView:ButtonRect];
     
-    //Location
-    UIButton *ButtonLocation = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    ButtonLocation.frame = CGRectMake(60, self.view.frame.size.height -100, 50, 30);
-    ButtonLocation.backgroundColor = [UIColor clearColor];
-    [ButtonLocation setTitle:@"Location" forState:UIControlStateNormal];
-    ButtonLocation.titleLabel.font = [UIFont fontWithName:@"helvetica" size:12];
-    [ButtonLocation setBackgroundImage:[UIImage imageNamed:@"28.png"] forState:UIControlStateNormal];
-    [self.view addSubview:ButtonLocation];
-    [ButtonLocation addTarget:self action:@selector(setMyLocationStart) forControlEvents:UIControlEventTouchDown];
+    //Line
+    UIButton *ButtonLine = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    ButtonLine.frame = CGRectMake(60, self.view.frame.size.height -100, 50, 30);
+    ButtonLine.backgroundColor = [UIColor clearColor];
+    [ButtonLine setTitle:@"Location" forState:UIControlStateNormal];
+    ButtonLine.titleLabel.font = [UIFont fontWithName:@"helvetica" size:12];
+    [ButtonLine setBackgroundImage:[UIImage imageNamed:@"28.png"] forState:UIControlStateNormal];
+    [self.view addSubview:ButtonLine];
+    [ButtonLine addTarget:self action:@selector(setMyLocationStart) forControlEvents:UIControlEventTouchDown];
     
-    UIBarButtonItem *itemLocation = [[UIBarButtonItem alloc] initWithCustomView:ButtonLocation];
+    UIBarButtonItem *itemLine = [[UIBarButtonItem alloc] initWithCustomView:ButtonLine];
     
     //Route
     UIButton *ButtonRoute = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -286,7 +284,7 @@ enum{
     
     UIBarButtonItem *itemRoute = [[UIBarButtonItem alloc] initWithCustomView:ButtonRoute];
     
-    self.toolbarItems = [NSArray arrayWithObjects:itemCircle,itemRect,itemLocation,itemRoute,nil];
+    self.toolbarItems = [NSArray arrayWithObjects:itemCircle,itemRect,itemLine,itemRoute,nil];
 }
 
 #pragma mark -DRAW electronic fence
@@ -433,7 +431,7 @@ enum{
         float y2 = myAtherPoint.coordinate.latitude;
         float x2 = myAtherPoint.coordinate.longitude;
         
-        self.searchOption=[[MARouteSearchOption alloc]init];
+        self.searchOption=[[MARouteSearchOption alloc] init];
         self.searchOption.x1= [NSString stringWithFormat:@"%f",x1];
         self.searchOption.y1= [NSString stringWithFormat:@"%f",y1];
         self.searchOption.x2= [NSString stringWithFormat:@"%f",x2];
@@ -545,13 +543,6 @@ enum{
     if (self.mapView.userLocation != nil) {
         [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate];
         NSLog(@"x:%f---y:%f",self.mapView.userLocation.coordinate.latitude,self.mapView.userLocation.coordinate.longitude);
-        userLocation *myLocation = [[userLocation alloc] init];
-        myLocation.tel = @"13633841518";
-        myLocation.x = [NSString stringWithFormat:@"%f",mapView.userLocation.coordinate.longitude];
-        myLocation.y = [NSString stringWithFormat:@"%f",mapView.userLocation.coordinate.latitude];
-        [tool setTheLocation:myLocation];
-        
-        
     }
 }
 
@@ -581,7 +572,7 @@ enum{
     self.navigationController.toolbar.barStyle      = UIBarStyleBlack;
     self.navigationController.toolbar.translucent   = YES;
     [self.navigationController setToolbarHidden:NO animated:animated];
-    self.mapView.showsUserLocation = YES;
+    //self.mapView.showsUserLocation = YES;
     //[self.mapView addOverlays:self.overlays];
 }
 
