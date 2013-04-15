@@ -73,10 +73,6 @@
 		5A7D3EB117168ABD00AC728F /* MXSMapListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D3EAF17168ABD00AC728F /* MXSMapListViewController.xib */; };
 		5A7D3EB5171695B200AC728F /* BaseSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D3EB4171695B200AC728F /* BaseSearchViewController.m */; };
 		5A7D3EB91716960900AC728F /* BaseMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D3EB81716960900AC728F /* BaseMapViewController.m */; };
-		5AB8CCCA171C0CF600605AED /* UserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCC5171C0CF600605AED /* UserLoginViewController.m */; };
-		5AB8CCCB171C0CF600605AED /* UserLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AB8CCC6171C0CF600605AED /* UserLoginViewController.xib */; };
-		5AB8CCCC171C0CF600605AED /* UserRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCC8171C0CF600605AED /* UserRegisterViewController.m */; };
-		5AB8CCCD171C0CF600605AED /* UserRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AB8CCC9171C0CF600605AED /* UserRegisterViewController.xib */; };
 		5AB8CCE8171C0D1900605AED /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCD0171C0D1900605AED /* NSObject+SBJson.m */; };
 		5AB8CCE9171C0D1900605AED /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCD3171C0D1900605AED /* SBJsonParser.m */; };
 		5AB8CCEA171C0D1900605AED /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB8CCD5171C0D1900605AED /* SBJsonStreamParser.m */; };
@@ -246,12 +242,6 @@
 		5A7D3EB4171695B200AC728F /* BaseSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseSearchViewController.m; sourceTree = "<group>"; };
 		5A7D3EB71716960900AC728F /* BaseMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseMapViewController.h; sourceTree = "<group>"; };
 		5A7D3EB81716960900AC728F /* BaseMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseMapViewController.m; sourceTree = "<group>"; };
-		5AB8CCC4171C0CF600605AED /* UserLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLoginViewController.h; sourceTree = "<group>"; };
-		5AB8CCC5171C0CF600605AED /* UserLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLoginViewController.m; sourceTree = "<group>"; };
-		5AB8CCC6171C0CF600605AED /* UserLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserLoginViewController.xib; sourceTree = "<group>"; };
-		5AB8CCC7171C0CF600605AED /* UserRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRegisterViewController.h; sourceTree = "<group>"; };
-		5AB8CCC8171C0CF600605AED /* UserRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRegisterViewController.m; sourceTree = "<group>"; };
-		5AB8CCC9171C0CF600605AED /* UserRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserRegisterViewController.xib; sourceTree = "<group>"; };
 		5AB8CCCF171C0D1900605AED /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		5AB8CCD0171C0D1900605AED /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		5AB8CCD1171C0D1900605AED /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -313,12 +303,6 @@
 		5A53FCFD171938F1004649F6 /* login */ = {
 			isa = PBXGroup;
 			children = (
-				5AB8CCC4171C0CF600605AED /* UserLoginViewController.h */,
-				5AB8CCC5171C0CF600605AED /* UserLoginViewController.m */,
-				5AB8CCC6171C0CF600605AED /* UserLoginViewController.xib */,
-				5AB8CCC7171C0CF600605AED /* UserRegisterViewController.h */,
-				5AB8CCC8171C0CF600605AED /* UserRegisterViewController.m */,
-				5AB8CCC9171C0CF600605AED /* UserRegisterViewController.xib */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -858,8 +842,6 @@
 				5A7D3E99171687DF00AC728F /* AMap.bundle in Resources */,
 				5A7D3E9C171687DF00AC728F /* AMap.bundle in Resources */,
 				5A7D3EB117168ABD00AC728F /* MXSMapListViewController.xib in Resources */,
-				5AB8CCCB171C0CF600605AED /* UserLoginViewController.xib in Resources */,
-				5AB8CCCD171C0CF600605AED /* UserRegisterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,8 +888,6 @@
 				5A7D3EB017168ABD00AC728F /* MXSMapListViewController.m in Sources */,
 				5A7D3EB5171695B200AC728F /* BaseSearchViewController.m in Sources */,
 				5A7D3EB91716960900AC728F /* BaseMapViewController.m in Sources */,
-				5AB8CCCA171C0CF600605AED /* UserLoginViewController.m in Sources */,
-				5AB8CCCC171C0CF600605AED /* UserRegisterViewController.m in Sources */,
 				5AB8CCE8171C0D1900605AED /* NSObject+SBJson.m in Sources */,
 				5AB8CCE9171C0D1900605AED /* SBJsonParser.m in Sources */,
 				5AB8CCEA171C0D1900605AED /* SBJsonStreamParser.m in Sources */,
