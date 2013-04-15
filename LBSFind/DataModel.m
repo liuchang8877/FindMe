@@ -29,3 +29,12 @@
 @synthesize y;
 
 @end
+
+
+@implementation userInfo
+@synthesize name;
+@synthesize tel;
+@synthesize pwd;
+@synthesize anPwd;
+
+@end

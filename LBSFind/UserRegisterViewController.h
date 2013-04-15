@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface UserRegisterViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *telTextField;
+@property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
+@property (weak, nonatomic) IBOutlet UITextField *anPwdTextField;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
+- (IBAction)onClickRegister:(id)sender;
 
 @end

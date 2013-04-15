@@ -10,6 +10,9 @@
 #import "MAMapKit.h"
 #import "tool.h"
 #import "DataModel.h"
+#import "ASIHTTPRequest.h"
+#import "allConfig.h"
+
 #define PI 3.1415926
 enum{
     OverlayViewControllerOverlayTypeCircle = 0,
@@ -549,11 +552,69 @@ enum{
         myLocation.tel = @"13633841518";
         myLocation.x = [NSString stringWithFormat:@"%f",mapView.userLocation.coordinate.longitude];
         myLocation.y = [NSString stringWithFormat:@"%f",mapView.userLocation.coordinate.latitude];
-        [tool setTheLocation:myLocation];
+        [self setTheLocation:myLocation];
         
         
     }
 }
+
+#pragma mark http for setTheLocation
+- (void)setTheLocation:(userLocation *)myLocation
+{
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=sendloc&tel=%@&longi=%@&lati=%@",URL_IP,URL_PORT,myLocation.tel,myLocation.x,myLocation.y];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"setTheLocation---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"setTheLocation---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+//        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+//        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+        
+    } else {
+        
+        NSLog(@"setTheLocation---net is NOT ok");
+        [tool checkNetAlter];
+    }
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    // Use when fetching text data
+    //NSString *responseString = [request responseString];
+    
+    // Use when fetching binary data
+    //NSData *responseData = [request responseData];
+    
+    NSString *responseString=[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"userLocationRequestFinished---responseString:%@",responseString);
+    
+    //    SBJsonParser * parser = [[SBJsonParser alloc] init];
+    //    NSError * error = nil;
+    //    NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
+    //
+    //    NSMutableDictionary * dicRetInfo = [jsonDic objectForKey:@"ret"];
+    
+}
+
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    NSError *error = [request error];
+    NSLog(@"userLocationRequestFailed---error:%@",error);
+    [tool checkNetAlter];
+}
+
 
 #pragma mark - Life Cycle
 
@@ -568,6 +629,13 @@ enum{
         self.overlays = [NSMutableArray array];
         delteTarg = 0;
         [self initAnnotations];
+        NSTimer *timer;
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval: 30.5
+                                                 target: self
+                                               selector: @selector(setMyLocationStart)
+                                               userInfo: nil
+                                                repeats: YES];
     }
     
     return self;

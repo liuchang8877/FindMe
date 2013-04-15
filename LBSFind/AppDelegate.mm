@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
 #import "MXSMapListViewController.h"
+#import "UserLoginViewController.h"
 
 
 @implementation AppDelegate
@@ -24,7 +25,8 @@
         self.viewController = [[ViewController alloc] initWithNibName:@"ViewController_iPad" bundle:nil];
     }
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[MXSMapListViewController alloc] init]];
+    //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[MXSMapListViewController alloc] init]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[UserLoginViewController alloc] init]];
 
     //self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[LSViewController alloc] init]];
     //self.window.rootViewController = self.viewController;

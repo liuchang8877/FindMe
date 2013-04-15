@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserLoginViewController : UIViewController
+@interface UserLoginViewController : UIViewController<UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *registerButton;
+- (IBAction)onClickLogin:(id)sender;
+- (IBAction)onClickRegister:(id)sender;
 
 @end

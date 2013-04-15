@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1891978F171C3389004F06A2 /* LICENSE 下午9.03.00.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1891978E171C3389004F06A2 /* LICENSE 下午9.03.00.txt */; };
+		189553A4171C2B3F0092F5DD /* libMAMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18955379171C2B3F0092F5DD /* libMAMapKit.a */; };
+		189553A5171C2B3F0092F5DD /* libMAMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1895537B171C2B3F0092F5DD /* libMAMapKit.a */; };
+		189553A6171C2B3F0092F5DD /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1895537D171C2B3F0092F5DD /* AMap.bundle */; };
+		189553A7171C2B3F0092F5DD /* libMAMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18955395171C2B3F0092F5DD /* libMAMapKit.a */; };
+		189553A8171C2B3F0092F5DD /* libMAMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18955397171C2B3F0092F5DD /* libMAMapKit.a */; };
+		189553A9171C2B400092F5DD /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18955399171C2B3F0092F5DD /* AMap.bundle */; };
+		189553AA171C2B400092F5DD /* libMASearchKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 189553A1171C2B3F0092F5DD /* libMASearchKit.a */; };
+		189553AB171C2B400092F5DD /* libMASearchKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 189553A3171C2B3F0092F5DD /* libMASearchKit.a */; };
 		5A7D3CD217165E7400AC728F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3CD117165E7400AC728F /* UIKit.framework */; };
 		5A7D3CD417165E7400AC728F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3CD317165E7400AC728F /* Foundation.framework */; };
 		5A7D3CD617165E7400AC728F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3CD517165E7400AC728F /* CoreGraphics.framework */; };
@@ -55,17 +64,8 @@
 		5A7D3E011716830000AC728F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D3DE31716830000AC728F /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5A7D3E021716830000AC728F /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D3DE51716830000AC728F /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5A7D3E031716830000AC728F /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D3DE71716830000AC728F /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		5A7D3E041716830000AC728F /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D3DE81716830000AC728F /* LICENSE.txt */; };
 		5A7D3E061716839C00AC728F /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3E051716839C00AC728F /* libxml2.2.dylib */; };
 		5A7D3E08171684E100AC728F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3E07171684E100AC728F /* MobileCoreServices.framework */; };
-		5A7D3E97171687DF00AC728F /* libMAMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3E6C171687DF00AC728F /* libMAMapKit.a */; };
-		5A7D3E98171687DF00AC728F /* libMAMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3E6E171687DF00AC728F /* libMAMapKit.a */; };
-		5A7D3E99171687DF00AC728F /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D3E70171687DF00AC728F /* AMap.bundle */; };
-		5A7D3E9A171687DF00AC728F /* libMAMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3E88171687DF00AC728F /* libMAMapKit.a */; };
-		5A7D3E9B171687DF00AC728F /* libMAMapKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3E8A171687DF00AC728F /* libMAMapKit.a */; };
-		5A7D3E9C171687DF00AC728F /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A7D3E8C171687DF00AC728F /* AMap.bundle */; };
-		5A7D3E9D171687DF00AC728F /* libMASearchKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3E94171687DF00AC728F /* libMASearchKit.a */; };
-		5A7D3E9E171687DF00AC728F /* libMASearchKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3E96171687DF00AC728F /* libMASearchKit.a */; };
 		5A7D3EA6171689A200AC728F /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D3EA5171689A200AC728F /* DataModel.m */; };
 		5A7D3EA9171689AC00AC728F /* DBHandleDAO.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D3EA8171689AC00AC728F /* DBHandleDAO.m */; };
 		5A7D3EAC171689CF00AC728F /* tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7D3EAB171689CF00AC728F /* tool.m */; };
@@ -92,6 +92,59 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1891978E171C3389004F06A2 /* LICENSE 下午9.03.00.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "LICENSE 下午9.03.00.txt"; sourceTree = "<group>"; };
+		18955364171C2B3F0092F5DD /* MAAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAnnotation.h; sourceTree = "<group>"; };
+		18955365171C2B3F0092F5DD /* MAAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAnnotationView.h; sourceTree = "<group>"; };
+		18955366171C2B3F0092F5DD /* MACircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACircle.h; sourceTree = "<group>"; };
+		18955367171C2B3F0092F5DD /* MACircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACircleView.h; sourceTree = "<group>"; };
+		18955368171C2B3F0092F5DD /* MAGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAGeometry.h; sourceTree = "<group>"; };
+		18955369171C2B3F0092F5DD /* MAMapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMapKit.h; sourceTree = "<group>"; };
+		1895536A171C2B3F0092F5DD /* MAMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMapView.h; sourceTree = "<group>"; };
+		1895536B171C2B3F0092F5DD /* MAMultiPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMultiPoint.h; sourceTree = "<group>"; };
+		1895536C171C2B3F0092F5DD /* MAOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlay.h; sourceTree = "<group>"; };
+		1895536D171C2B3F0092F5DD /* MAOverlayPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlayPathView.h; sourceTree = "<group>"; };
+		1895536E171C2B3F0092F5DD /* MAOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlayView.h; sourceTree = "<group>"; };
+		1895536F171C2B3F0092F5DD /* MAPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPinAnnotationView.h; sourceTree = "<group>"; };
+		18955370171C2B3F0092F5DD /* MAPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPointAnnotation.h; sourceTree = "<group>"; };
+		18955371171C2B3F0092F5DD /* MAPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolygon.h; sourceTree = "<group>"; };
+		18955372171C2B3F0092F5DD /* MAPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolygonView.h; sourceTree = "<group>"; };
+		18955373171C2B3F0092F5DD /* MAPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolyline.h; sourceTree = "<group>"; };
+		18955374171C2B3F0092F5DD /* MAPolylineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolylineView.h; sourceTree = "<group>"; };
+		18955375171C2B3F0092F5DD /* MAShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAShape.h; sourceTree = "<group>"; };
+		18955376171C2B3F0092F5DD /* MATypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MATypes.h; sourceTree = "<group>"; };
+		18955377171C2B3F0092F5DD /* MAUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAUserLocation.h; sourceTree = "<group>"; };
+		18955379171C2B3F0092F5DD /* libMAMapKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMAMapKit.a; sourceTree = "<group>"; };
+		1895537B171C2B3F0092F5DD /* libMAMapKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMAMapKit.a; sourceTree = "<group>"; };
+		1895537D171C2B3F0092F5DD /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
+		18955380171C2B3F0092F5DD /* MAAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAnnotation.h; sourceTree = "<group>"; };
+		18955381171C2B3F0092F5DD /* MAAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAnnotationView.h; sourceTree = "<group>"; };
+		18955382171C2B3F0092F5DD /* MACircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACircle.h; sourceTree = "<group>"; };
+		18955383171C2B3F0092F5DD /* MACircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACircleView.h; sourceTree = "<group>"; };
+		18955384171C2B3F0092F5DD /* MAGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAGeometry.h; sourceTree = "<group>"; };
+		18955385171C2B3F0092F5DD /* MAMapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMapKit.h; sourceTree = "<group>"; };
+		18955386171C2B3F0092F5DD /* MAMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMapView.h; sourceTree = "<group>"; };
+		18955387171C2B3F0092F5DD /* MAMultiPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMultiPoint.h; sourceTree = "<group>"; };
+		18955388171C2B3F0092F5DD /* MAOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlay.h; sourceTree = "<group>"; };
+		18955389171C2B3F0092F5DD /* MAOverlayPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlayPathView.h; sourceTree = "<group>"; };
+		1895538A171C2B3F0092F5DD /* MAOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlayView.h; sourceTree = "<group>"; };
+		1895538B171C2B3F0092F5DD /* MAPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPinAnnotationView.h; sourceTree = "<group>"; };
+		1895538C171C2B3F0092F5DD /* MAPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPointAnnotation.h; sourceTree = "<group>"; };
+		1895538D171C2B3F0092F5DD /* MAPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolygon.h; sourceTree = "<group>"; };
+		1895538E171C2B3F0092F5DD /* MAPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolygonView.h; sourceTree = "<group>"; };
+		1895538F171C2B3F0092F5DD /* MAPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolyline.h; sourceTree = "<group>"; };
+		18955390171C2B3F0092F5DD /* MAPolylineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolylineView.h; sourceTree = "<group>"; };
+		18955391171C2B3F0092F5DD /* MAShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAShape.h; sourceTree = "<group>"; };
+		18955392171C2B3F0092F5DD /* MATypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MATypes.h; sourceTree = "<group>"; };
+		18955393171C2B3F0092F5DD /* MAUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAUserLocation.h; sourceTree = "<group>"; };
+		18955395171C2B3F0092F5DD /* libMAMapKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMAMapKit.a; sourceTree = "<group>"; };
+		18955397171C2B3F0092F5DD /* libMAMapKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMAMapKit.a; sourceTree = "<group>"; };
+		18955399171C2B3F0092F5DD /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
+		1895539C171C2B3F0092F5DD /* MASearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASearch.h; sourceTree = "<group>"; };
+		1895539D171C2B3F0092F5DD /* MASearchKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASearchKit.h; sourceTree = "<group>"; };
+		1895539E171C2B3F0092F5DD /* MASearchOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASearchOption.h; sourceTree = "<group>"; };
+		1895539F171C2B3F0092F5DD /* MASearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASearchResult.h; sourceTree = "<group>"; };
+		189553A1171C2B3F0092F5DD /* libMASearchKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMASearchKit.a; sourceTree = "<group>"; };
+		189553A3171C2B3F0092F5DD /* libMASearchKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMASearchKit.a; sourceTree = "<group>"; };
 		5A7D3CCE17165E7400AC728F /* LBSFind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LBSFind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A7D3CD117165E7400AC728F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5A7D3CD317165E7400AC728F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -177,61 +230,8 @@
 		5A7D3DE51716830000AC728F /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
 		5A7D3DE61716830000AC728F /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		5A7D3DE71716830000AC728F /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		5A7D3DE81716830000AC728F /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		5A7D3E051716839C00AC728F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		5A7D3E07171684E100AC728F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		5A7D3E57171687DF00AC728F /* MAAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAnnotation.h; sourceTree = "<group>"; };
-		5A7D3E58171687DF00AC728F /* MAAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAnnotationView.h; sourceTree = "<group>"; };
-		5A7D3E59171687DF00AC728F /* MACircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACircle.h; sourceTree = "<group>"; };
-		5A7D3E5A171687DF00AC728F /* MACircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACircleView.h; sourceTree = "<group>"; };
-		5A7D3E5B171687DF00AC728F /* MAGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAGeometry.h; sourceTree = "<group>"; };
-		5A7D3E5C171687DF00AC728F /* MAMapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMapKit.h; sourceTree = "<group>"; };
-		5A7D3E5D171687DF00AC728F /* MAMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMapView.h; sourceTree = "<group>"; };
-		5A7D3E5E171687DF00AC728F /* MAMultiPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMultiPoint.h; sourceTree = "<group>"; };
-		5A7D3E5F171687DF00AC728F /* MAOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlay.h; sourceTree = "<group>"; };
-		5A7D3E60171687DF00AC728F /* MAOverlayPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlayPathView.h; sourceTree = "<group>"; };
-		5A7D3E61171687DF00AC728F /* MAOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlayView.h; sourceTree = "<group>"; };
-		5A7D3E62171687DF00AC728F /* MAPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPinAnnotationView.h; sourceTree = "<group>"; };
-		5A7D3E63171687DF00AC728F /* MAPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPointAnnotation.h; sourceTree = "<group>"; };
-		5A7D3E64171687DF00AC728F /* MAPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolygon.h; sourceTree = "<group>"; };
-		5A7D3E65171687DF00AC728F /* MAPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolygonView.h; sourceTree = "<group>"; };
-		5A7D3E66171687DF00AC728F /* MAPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolyline.h; sourceTree = "<group>"; };
-		5A7D3E67171687DF00AC728F /* MAPolylineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolylineView.h; sourceTree = "<group>"; };
-		5A7D3E68171687DF00AC728F /* MAShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAShape.h; sourceTree = "<group>"; };
-		5A7D3E69171687DF00AC728F /* MATypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MATypes.h; sourceTree = "<group>"; };
-		5A7D3E6A171687DF00AC728F /* MAUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAUserLocation.h; sourceTree = "<group>"; };
-		5A7D3E6C171687DF00AC728F /* libMAMapKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMAMapKit.a; sourceTree = "<group>"; };
-		5A7D3E6E171687DF00AC728F /* libMAMapKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMAMapKit.a; sourceTree = "<group>"; };
-		5A7D3E70171687DF00AC728F /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
-		5A7D3E73171687DF00AC728F /* MAAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAnnotation.h; sourceTree = "<group>"; };
-		5A7D3E74171687DF00AC728F /* MAAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAnnotationView.h; sourceTree = "<group>"; };
-		5A7D3E75171687DF00AC728F /* MACircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACircle.h; sourceTree = "<group>"; };
-		5A7D3E76171687DF00AC728F /* MACircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACircleView.h; sourceTree = "<group>"; };
-		5A7D3E77171687DF00AC728F /* MAGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAGeometry.h; sourceTree = "<group>"; };
-		5A7D3E78171687DF00AC728F /* MAMapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMapKit.h; sourceTree = "<group>"; };
-		5A7D3E79171687DF00AC728F /* MAMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMapView.h; sourceTree = "<group>"; };
-		5A7D3E7A171687DF00AC728F /* MAMultiPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAMultiPoint.h; sourceTree = "<group>"; };
-		5A7D3E7B171687DF00AC728F /* MAOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlay.h; sourceTree = "<group>"; };
-		5A7D3E7C171687DF00AC728F /* MAOverlayPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlayPathView.h; sourceTree = "<group>"; };
-		5A7D3E7D171687DF00AC728F /* MAOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAOverlayView.h; sourceTree = "<group>"; };
-		5A7D3E7E171687DF00AC728F /* MAPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPinAnnotationView.h; sourceTree = "<group>"; };
-		5A7D3E7F171687DF00AC728F /* MAPointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPointAnnotation.h; sourceTree = "<group>"; };
-		5A7D3E80171687DF00AC728F /* MAPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolygon.h; sourceTree = "<group>"; };
-		5A7D3E81171687DF00AC728F /* MAPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolygonView.h; sourceTree = "<group>"; };
-		5A7D3E82171687DF00AC728F /* MAPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolyline.h; sourceTree = "<group>"; };
-		5A7D3E83171687DF00AC728F /* MAPolylineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPolylineView.h; sourceTree = "<group>"; };
-		5A7D3E84171687DF00AC728F /* MAShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAShape.h; sourceTree = "<group>"; };
-		5A7D3E85171687DF00AC728F /* MATypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MATypes.h; sourceTree = "<group>"; };
-		5A7D3E86171687DF00AC728F /* MAUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAUserLocation.h; sourceTree = "<group>"; };
-		5A7D3E88171687DF00AC728F /* libMAMapKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMAMapKit.a; sourceTree = "<group>"; };
-		5A7D3E8A171687DF00AC728F /* libMAMapKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMAMapKit.a; sourceTree = "<group>"; };
-		5A7D3E8C171687DF00AC728F /* AMap.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AMap.bundle; sourceTree = "<group>"; };
-		5A7D3E8F171687DF00AC728F /* MASearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASearch.h; sourceTree = "<group>"; };
-		5A7D3E90171687DF00AC728F /* MASearchKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASearchKit.h; sourceTree = "<group>"; };
-		5A7D3E91171687DF00AC728F /* MASearchOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASearchOption.h; sourceTree = "<group>"; };
-		5A7D3E92171687DF00AC728F /* MASearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASearchResult.h; sourceTree = "<group>"; };
-		5A7D3E94171687DF00AC728F /* libMASearchKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMASearchKit.a; sourceTree = "<group>"; };
-		5A7D3E96171687DF00AC728F /* libMASearchKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMASearchKit.a; sourceTree = "<group>"; };
 		5A7D3EA01716897800AC728F /* allConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allConfig.h; sourceTree = "<group>"; };
 		5A7D3EA4171689A200AC728F /* DataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataModel.h; sourceTree = "<group>"; };
 		5A7D3EA5171689A200AC728F /* DataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataModel.m; sourceTree = "<group>"; };
@@ -298,18 +298,189 @@
 				5A7D3CF817165EE500AC728F /* QuartzCore.framework in Frameworks */,
 				5A7D3CD217165E7400AC728F /* UIKit.framework in Frameworks */,
 				5A7D3CD417165E7400AC728F /* Foundation.framework in Frameworks */,
-				5A7D3E97171687DF00AC728F /* libMAMapKit.a in Frameworks */,
-				5A7D3E98171687DF00AC728F /* libMAMapKit.a in Frameworks */,
-				5A7D3E9A171687DF00AC728F /* libMAMapKit.a in Frameworks */,
-				5A7D3E9B171687DF00AC728F /* libMAMapKit.a in Frameworks */,
-				5A7D3E9D171687DF00AC728F /* libMASearchKit.a in Frameworks */,
-				5A7D3E9E171687DF00AC728F /* libMASearchKit.a in Frameworks */,
+				189553A4171C2B3F0092F5DD /* libMAMapKit.a in Frameworks */,
+				189553A5171C2B3F0092F5DD /* libMAMapKit.a in Frameworks */,
+				189553A7171C2B3F0092F5DD /* libMAMapKit.a in Frameworks */,
+				189553A8171C2B3F0092F5DD /* libMAMapKit.a in Frameworks */,
+				189553AA171C2B400092F5DD /* libMASearchKit.a in Frameworks */,
+				189553AB171C2B400092F5DD /* libMASearchKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18955361171C2B3F0092F5DD /* AMap_iOS_API_Lib_V2.0.4 */ = {
+			isa = PBXGroup;
+			children = (
+				18955362171C2B3F0092F5DD /* 2D */,
+				1895537E171C2B3F0092F5DD /* 3D */,
+				1895539A171C2B3F0092F5DD /* search */,
+			);
+			path = AMap_iOS_API_Lib_V2.0.4;
+			sourceTree = "<group>";
+		};
+		18955362171C2B3F0092F5DD /* 2D */ = {
+			isa = PBXGroup;
+			children = (
+				18955363171C2B3F0092F5DD /* Headers */,
+				18955378171C2B3F0092F5DD /* Release-iphoneos */,
+				1895537A171C2B3F0092F5DD /* Release-iphonesimulator */,
+				1895537C171C2B3F0092F5DD /* Resources */,
+			);
+			path = 2D;
+			sourceTree = "<group>";
+		};
+		18955363171C2B3F0092F5DD /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				18955364171C2B3F0092F5DD /* MAAnnotation.h */,
+				18955365171C2B3F0092F5DD /* MAAnnotationView.h */,
+				18955366171C2B3F0092F5DD /* MACircle.h */,
+				18955367171C2B3F0092F5DD /* MACircleView.h */,
+				18955368171C2B3F0092F5DD /* MAGeometry.h */,
+				18955369171C2B3F0092F5DD /* MAMapKit.h */,
+				1895536A171C2B3F0092F5DD /* MAMapView.h */,
+				1895536B171C2B3F0092F5DD /* MAMultiPoint.h */,
+				1895536C171C2B3F0092F5DD /* MAOverlay.h */,
+				1895536D171C2B3F0092F5DD /* MAOverlayPathView.h */,
+				1895536E171C2B3F0092F5DD /* MAOverlayView.h */,
+				1895536F171C2B3F0092F5DD /* MAPinAnnotationView.h */,
+				18955370171C2B3F0092F5DD /* MAPointAnnotation.h */,
+				18955371171C2B3F0092F5DD /* MAPolygon.h */,
+				18955372171C2B3F0092F5DD /* MAPolygonView.h */,
+				18955373171C2B3F0092F5DD /* MAPolyline.h */,
+				18955374171C2B3F0092F5DD /* MAPolylineView.h */,
+				18955375171C2B3F0092F5DD /* MAShape.h */,
+				18955376171C2B3F0092F5DD /* MATypes.h */,
+				18955377171C2B3F0092F5DD /* MAUserLocation.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		18955378171C2B3F0092F5DD /* Release-iphoneos */ = {
+			isa = PBXGroup;
+			children = (
+				18955379171C2B3F0092F5DD /* libMAMapKit.a */,
+			);
+			path = "Release-iphoneos";
+			sourceTree = "<group>";
+		};
+		1895537A171C2B3F0092F5DD /* Release-iphonesimulator */ = {
+			isa = PBXGroup;
+			children = (
+				1895537B171C2B3F0092F5DD /* libMAMapKit.a */,
+			);
+			path = "Release-iphonesimulator";
+			sourceTree = "<group>";
+		};
+		1895537C171C2B3F0092F5DD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1895537D171C2B3F0092F5DD /* AMap.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1895537E171C2B3F0092F5DD /* 3D */ = {
+			isa = PBXGroup;
+			children = (
+				1895537F171C2B3F0092F5DD /* Headers */,
+				18955394171C2B3F0092F5DD /* Release-iphoneos */,
+				18955396171C2B3F0092F5DD /* Release-iphonesimulator */,
+				18955398171C2B3F0092F5DD /* Resources */,
+			);
+			path = 3D;
+			sourceTree = "<group>";
+		};
+		1895537F171C2B3F0092F5DD /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				18955380171C2B3F0092F5DD /* MAAnnotation.h */,
+				18955381171C2B3F0092F5DD /* MAAnnotationView.h */,
+				18955382171C2B3F0092F5DD /* MACircle.h */,
+				18955383171C2B3F0092F5DD /* MACircleView.h */,
+				18955384171C2B3F0092F5DD /* MAGeometry.h */,
+				18955385171C2B3F0092F5DD /* MAMapKit.h */,
+				18955386171C2B3F0092F5DD /* MAMapView.h */,
+				18955387171C2B3F0092F5DD /* MAMultiPoint.h */,
+				18955388171C2B3F0092F5DD /* MAOverlay.h */,
+				18955389171C2B3F0092F5DD /* MAOverlayPathView.h */,
+				1895538A171C2B3F0092F5DD /* MAOverlayView.h */,
+				1895538B171C2B3F0092F5DD /* MAPinAnnotationView.h */,
+				1895538C171C2B3F0092F5DD /* MAPointAnnotation.h */,
+				1895538D171C2B3F0092F5DD /* MAPolygon.h */,
+				1895538E171C2B3F0092F5DD /* MAPolygonView.h */,
+				1895538F171C2B3F0092F5DD /* MAPolyline.h */,
+				18955390171C2B3F0092F5DD /* MAPolylineView.h */,
+				18955391171C2B3F0092F5DD /* MAShape.h */,
+				18955392171C2B3F0092F5DD /* MATypes.h */,
+				18955393171C2B3F0092F5DD /* MAUserLocation.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		18955394171C2B3F0092F5DD /* Release-iphoneos */ = {
+			isa = PBXGroup;
+			children = (
+				18955395171C2B3F0092F5DD /* libMAMapKit.a */,
+			);
+			path = "Release-iphoneos";
+			sourceTree = "<group>";
+		};
+		18955396171C2B3F0092F5DD /* Release-iphonesimulator */ = {
+			isa = PBXGroup;
+			children = (
+				18955397171C2B3F0092F5DD /* libMAMapKit.a */,
+			);
+			path = "Release-iphonesimulator";
+			sourceTree = "<group>";
+		};
+		18955398171C2B3F0092F5DD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				18955399171C2B3F0092F5DD /* AMap.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		1895539A171C2B3F0092F5DD /* search */ = {
+			isa = PBXGroup;
+			children = (
+				1895539B171C2B3F0092F5DD /* Headers */,
+				189553A0171C2B3F0092F5DD /* Release-iphoneos */,
+				189553A2171C2B3F0092F5DD /* Release-iphonesimulator */,
+			);
+			path = search;
+			sourceTree = "<group>";
+		};
+		1895539B171C2B3F0092F5DD /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				1895539C171C2B3F0092F5DD /* MASearch.h */,
+				1895539D171C2B3F0092F5DD /* MASearchKit.h */,
+				1895539E171C2B3F0092F5DD /* MASearchOption.h */,
+				1895539F171C2B3F0092F5DD /* MASearchResult.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		189553A0171C2B3F0092F5DD /* Release-iphoneos */ = {
+			isa = PBXGroup;
+			children = (
+				189553A1171C2B3F0092F5DD /* libMASearchKit.a */,
+			);
+			path = "Release-iphoneos";
+			sourceTree = "<group>";
+		};
+		189553A2171C2B3F0092F5DD /* Release-iphonesimulator */ = {
+			isa = PBXGroup;
+			children = (
+				189553A3171C2B3F0092F5DD /* libMASearchKit.a */,
+			);
+			path = "Release-iphonesimulator";
+			sourceTree = "<group>";
+		};
 		5A53FCFD171938F1004649F6 /* login */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,8 +572,8 @@
 		5A7D3D9F171681A900AC728F /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				18955361171C2B3F0092F5DD /* AMap_iOS_API_Lib_V2.0.4 */,
 				5AB8CCCE171C0D1900605AED /* SBJson */,
-				5A7D3E54171687DF00AC728F /* AMap_iOS_API_Lib_V2.0.3 */,
 				5A7D3DA41716830000AC728F /* ASIHttpRequest */,
 				5A7D3DE11716830000AC728F /* FMDB */,
 			);
@@ -528,186 +699,15 @@
 		5A7D3DE11716830000AC728F /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
+				1891978E171C3389004F06A2 /* LICENSE 下午9.03.00.txt */,
 				5A7D3DE21716830000AC728F /* FMDatabase.h */,
 				5A7D3DE31716830000AC728F /* FMDatabase.m */,
 				5A7D3DE41716830000AC728F /* FMDatabaseAdditions.h */,
 				5A7D3DE51716830000AC728F /* FMDatabaseAdditions.m */,
 				5A7D3DE61716830000AC728F /* FMResultSet.h */,
 				5A7D3DE71716830000AC728F /* FMResultSet.m */,
-				5A7D3DE81716830000AC728F /* LICENSE.txt */,
 			);
 			path = FMDB;
-			sourceTree = "<group>";
-		};
-		5A7D3E54171687DF00AC728F /* AMap_iOS_API_Lib_V2.0.3 */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E55171687DF00AC728F /* 2D */,
-				5A7D3E71171687DF00AC728F /* 3D */,
-				5A7D3E8D171687DF00AC728F /* search */,
-			);
-			path = AMap_iOS_API_Lib_V2.0.3;
-			sourceTree = "<group>";
-		};
-		5A7D3E55171687DF00AC728F /* 2D */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E56171687DF00AC728F /* Headers */,
-				5A7D3E6B171687DF00AC728F /* Release-iphoneos */,
-				5A7D3E6D171687DF00AC728F /* Release-iphonesimulator */,
-				5A7D3E6F171687DF00AC728F /* Resources */,
-			);
-			path = 2D;
-			sourceTree = "<group>";
-		};
-		5A7D3E56171687DF00AC728F /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E57171687DF00AC728F /* MAAnnotation.h */,
-				5A7D3E58171687DF00AC728F /* MAAnnotationView.h */,
-				5A7D3E59171687DF00AC728F /* MACircle.h */,
-				5A7D3E5A171687DF00AC728F /* MACircleView.h */,
-				5A7D3E5B171687DF00AC728F /* MAGeometry.h */,
-				5A7D3E5C171687DF00AC728F /* MAMapKit.h */,
-				5A7D3E5D171687DF00AC728F /* MAMapView.h */,
-				5A7D3E5E171687DF00AC728F /* MAMultiPoint.h */,
-				5A7D3E5F171687DF00AC728F /* MAOverlay.h */,
-				5A7D3E60171687DF00AC728F /* MAOverlayPathView.h */,
-				5A7D3E61171687DF00AC728F /* MAOverlayView.h */,
-				5A7D3E62171687DF00AC728F /* MAPinAnnotationView.h */,
-				5A7D3E63171687DF00AC728F /* MAPointAnnotation.h */,
-				5A7D3E64171687DF00AC728F /* MAPolygon.h */,
-				5A7D3E65171687DF00AC728F /* MAPolygonView.h */,
-				5A7D3E66171687DF00AC728F /* MAPolyline.h */,
-				5A7D3E67171687DF00AC728F /* MAPolylineView.h */,
-				5A7D3E68171687DF00AC728F /* MAShape.h */,
-				5A7D3E69171687DF00AC728F /* MATypes.h */,
-				5A7D3E6A171687DF00AC728F /* MAUserLocation.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		5A7D3E6B171687DF00AC728F /* Release-iphoneos */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E6C171687DF00AC728F /* libMAMapKit.a */,
-			);
-			path = "Release-iphoneos";
-			sourceTree = "<group>";
-		};
-		5A7D3E6D171687DF00AC728F /* Release-iphonesimulator */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E6E171687DF00AC728F /* libMAMapKit.a */,
-			);
-			path = "Release-iphonesimulator";
-			sourceTree = "<group>";
-		};
-		5A7D3E6F171687DF00AC728F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E70171687DF00AC728F /* AMap.bundle */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		5A7D3E71171687DF00AC728F /* 3D */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E72171687DF00AC728F /* Headers */,
-				5A7D3E87171687DF00AC728F /* Release-iphoneos */,
-				5A7D3E89171687DF00AC728F /* Release-iphonesimulator */,
-				5A7D3E8B171687DF00AC728F /* Resource */,
-			);
-			path = 3D;
-			sourceTree = "<group>";
-		};
-		5A7D3E72171687DF00AC728F /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E73171687DF00AC728F /* MAAnnotation.h */,
-				5A7D3E74171687DF00AC728F /* MAAnnotationView.h */,
-				5A7D3E75171687DF00AC728F /* MACircle.h */,
-				5A7D3E76171687DF00AC728F /* MACircleView.h */,
-				5A7D3E77171687DF00AC728F /* MAGeometry.h */,
-				5A7D3E78171687DF00AC728F /* MAMapKit.h */,
-				5A7D3E79171687DF00AC728F /* MAMapView.h */,
-				5A7D3E7A171687DF00AC728F /* MAMultiPoint.h */,
-				5A7D3E7B171687DF00AC728F /* MAOverlay.h */,
-				5A7D3E7C171687DF00AC728F /* MAOverlayPathView.h */,
-				5A7D3E7D171687DF00AC728F /* MAOverlayView.h */,
-				5A7D3E7E171687DF00AC728F /* MAPinAnnotationView.h */,
-				5A7D3E7F171687DF00AC728F /* MAPointAnnotation.h */,
-				5A7D3E80171687DF00AC728F /* MAPolygon.h */,
-				5A7D3E81171687DF00AC728F /* MAPolygonView.h */,
-				5A7D3E82171687DF00AC728F /* MAPolyline.h */,
-				5A7D3E83171687DF00AC728F /* MAPolylineView.h */,
-				5A7D3E84171687DF00AC728F /* MAShape.h */,
-				5A7D3E85171687DF00AC728F /* MATypes.h */,
-				5A7D3E86171687DF00AC728F /* MAUserLocation.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		5A7D3E87171687DF00AC728F /* Release-iphoneos */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E88171687DF00AC728F /* libMAMapKit.a */,
-			);
-			path = "Release-iphoneos";
-			sourceTree = "<group>";
-		};
-		5A7D3E89171687DF00AC728F /* Release-iphonesimulator */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E8A171687DF00AC728F /* libMAMapKit.a */,
-			);
-			path = "Release-iphonesimulator";
-			sourceTree = "<group>";
-		};
-		5A7D3E8B171687DF00AC728F /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E8C171687DF00AC728F /* AMap.bundle */,
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
-		5A7D3E8D171687DF00AC728F /* search */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E8E171687DF00AC728F /* Headers */,
-				5A7D3E93171687DF00AC728F /* Release-iphoneos */,
-				5A7D3E95171687DF00AC728F /* Release-iphonesimulator */,
-			);
-			path = search;
-			sourceTree = "<group>";
-		};
-		5A7D3E8E171687DF00AC728F /* Headers */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E8F171687DF00AC728F /* MASearch.h */,
-				5A7D3E90171687DF00AC728F /* MASearchKit.h */,
-				5A7D3E91171687DF00AC728F /* MASearchOption.h */,
-				5A7D3E92171687DF00AC728F /* MASearchResult.h */,
-			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		5A7D3E93171687DF00AC728F /* Release-iphoneos */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E94171687DF00AC728F /* libMASearchKit.a */,
-			);
-			path = "Release-iphoneos";
-			sourceTree = "<group>";
-		};
-		5A7D3E95171687DF00AC728F /* Release-iphonesimulator */ = {
-			isa = PBXGroup;
-			children = (
-				5A7D3E96171687DF00AC728F /* libMASearchKit.a */,
-			);
-			path = "Release-iphonesimulator";
 			sourceTree = "<group>";
 		};
 		5A7D3E9F171688A000AC728F /* global */ = {
@@ -854,12 +854,12 @@
 				5A7D3CE817165E7400AC728F /* Default-568h@2x.png in Resources */,
 				5A7D3CEE17165E7400AC728F /* ViewController_iPhone.xib in Resources */,
 				5A7D3CF117165E7400AC728F /* ViewController_iPad.xib in Resources */,
-				5A7D3E041716830000AC728F /* LICENSE.txt in Resources */,
-				5A7D3E99171687DF00AC728F /* AMap.bundle in Resources */,
-				5A7D3E9C171687DF00AC728F /* AMap.bundle in Resources */,
 				5A7D3EB117168ABD00AC728F /* MXSMapListViewController.xib in Resources */,
 				5AB8CCFB171C175900605AED /* UserLoginViewController.xib in Resources */,
 				5AB8CCFD171C175900605AED /* UserRegisterViewController.xib in Resources */,
+				189553A6171C2B3F0092F5DD /* AMap.bundle in Resources */,
+				189553A9171C2B400092F5DD /* AMap.bundle in Resources */,
+				1891978F171C3389004F06A2 /* LICENSE 下午9.03.00.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1024,12 +1024,12 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "LBSFind/LBSFind-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/2D/Release-iphoneos\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/3D/Release-iphoneos\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/search/Release-iphoneos\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/2D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/3D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/search/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphoneos\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphoneos\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphoneos\"",
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (
@@ -1052,12 +1052,12 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "LBSFind/LBSFind-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/2D/Release-iphoneos\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/3D/Release-iphoneos\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/search/Release-iphoneos\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/2D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/3D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.3/search/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphoneos\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphoneos\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphoneos\"",
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (

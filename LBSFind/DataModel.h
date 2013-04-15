@@ -46,3 +46,20 @@
 @property (nonatomic, retain)NSString    *y;
 
 @end
+
+// userInfo
+@interface userInfo : NSObject
+{
+    NSString    *name;             
+    NSString    *tel;              
+    NSString    *pwd;
+    NSString    *anPwd;
+    
+    
+}
+@property (nonatomic, retain)NSString    *name;
+@property (nonatomic, retain)NSString    *tel;
+@property (nonatomic, retain)NSString    *pwd;
+@property (nonatomic, retain)NSString    *anPwd;
+
+@end

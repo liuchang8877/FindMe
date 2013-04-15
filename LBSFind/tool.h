@@ -11,5 +11,6 @@
 @interface tool : NSObject
 
 
-+ (void)setTheLocation:(userLocation *)myLocation;
++ (BOOL)checkNetAlter;
++ (BOOL)checkNet;
 @end
