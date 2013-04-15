@@ -1,0 +1,164 @@
+GPS定位项目协议
+version: 1.0.02
+
+描述:
+    请求格式:
+    http://ip:port/do.php?action=<type>&param...
+
+    返回格式：
+    在HTTP 200 OK的情况下进行解析，否则按照HTTP标准进行出错提示;
+    返回数据为：JSON数据, mime为application/json;
+   
+    字段解释:
+    action, 请求的类型, 可以取值为"register, login, sendloc, setrelation, getuser, getuserloc, setfence, setsafepath";
+    param, 附带的参数，根据action来添加不同的参数;
+
+
+详细描述：
+
+* register
+  描述：用户注册接口
+
+  请求：
+  http://ip:port/do.php?action=register&tel=<tel>&user=<user>&pwd=<pwd>
+  解释：
+  "<tel>"为用户的tel
+  "<user>"为用户名字
+  "<pwd>"为用户密码
+
+  回应：
+  如果成功，HTTP回应"200 OK";
+  如果失败，HTTP回应"400 OK";
+  其他的值具体看HTTP协议
+
+
+* login
+  描述：用户登录接口
+  
+  请求：
+  http://ip:port/do.php?action=login&user=<user>&pwd=<pwd>
+  解释：
+  "<user>"为用户名字
+  "<pwd>"为用户密码
+
+  回应：
+  如果成功，HTTP回应"200 OK";
+  如果失败，HTTP回应"400 OK";
+  其他的值具体看HTTP协议
+
+
+* sendloc
+  描述：用户信息发送接口
+
+  请求：
+  http://ip:port/do.php?action=sendloc&tel=<tel>&longi=<longi>&lati=<lati>
+  解释：
+  "<tel>"为设备手机号
+  "<longi>"为经度值
+  "<lati>"为纬度值
+
+  回应：
+  如果成功，HTTP回应"200 OK";
+  如果失败，HTTP回应"400 OK";
+  其他的值具体看HTTP协议
+
+
+* setrelation
+  描述：设置要查看信息的用户
+
+  请求：
+  http://ip:port/do.php?action=setrelation&user=<user>&pwd=<pwd>&tel=<tel>
+  解释：
+  "<user>"为用户名字
+  "<pwd>"为用户密码
+  "<tel>"为被查询端用户手机号
+
+  回应：
+  如果成功，HTTP回应"200 OK";
+  如果失败，HTTP回应"400 OK";
+  其他的值具体看HTTP协议
+
+
+* getuser
+  描述：获得用户位置和围栏信息等接口
+
+  请求：
+  http://ip:port/do.php?action=getuser&user=<user>&pwd=<pwd>&tel=<tel>
+  解释：
+  "<user>"为用户名字
+  "<pwd>"为用户密码
+  "<tel>"为被查询端用户手机号
+
+  回应：
+	[
+		{ "tel": <tel>, "fence": <fence>, "safepath": <safepath> }
+	]
+  解释：
+  "<tel>"为设备的电话号码
+  "<fence>"为围栏信息，格式为：<status>|<fence_type>|<plot>
+  "<safepath>"为安全路径信息，格式为：<status>|<plot>
+
+
+* getuserloc
+  描述：获得受控节点当前位置信息
+
+  请求：
+  http://ip:port/do.php?action=getuserloc&user=<user>&pwd=<pwd>&tel=<tel>&type=<type>&begin=<begin>&end=<end>
+  解释：
+  "<type>"为坐标类型，取值为：now, history
+  "<start>"为坐标开始时间
+  "<end>"为坐标结束时间
+  "<user>"为用户名字
+  "<pwd>"为用户密码
+  "<tel>"为被查询端用户手机号码
+
+  回应：
+	[
+		{"time": <time>, "longti": <longti>, "lati": <lati>},
+		...
+	]
+  解释：
+  "<time>"为对应位置信息采集时间
+  "<longti>"经度值
+  "<lati>"纬度值
+
+
+* setfence
+  描述：设置围栏信息
+
+  请求：
+  http://ip:port/do.php?action=setfence&user=<user>&pwd=<pwd>&tel=<tel>&switch=<switch>&devloc=<devloc>&type=<type>&param=<param>
+  解释：
+  "<tel>"为用户tel
+  "<user>"为用户名字
+  "<pwd>"为用户密码
+  "<switch>"为启用开关，取值为：1, 启用; 0,不启用，当不启用的时候不需要添加围栏信息
+  "<userloc>"为被查询段的地理位置, 格式为："<longti>,<lati>"
+  "<type>"为围栏类型，取值为"circle"，"rectangle", "polygon"
+  "<param>"为围栏坐标的具体信息，详细如下：
+  当type为circle时，取值半径
+  当type为rectangle时，取值为x1,y1,x2,y2
+  当type为polygon时，取值为x1,x2,x3,x4,...；能够完整构建一个多边形区域
+
+  回应：
+  如果成功，HTTP回应"200 OK";
+  如果失败，HTTP回应"400 OK";
+  其他的值具体看HTTP协议
+
+ 
+* setsafepath
+  描述：设备安全路径
+
+  请求：
+  http://ip:port/do.php?action=setsafepath&user=<user>&pwd=<pwd>&tel=<tel>&switch=<switch>&param=<param>
+  解释：
+  "<tel>"为用户tel
+  "<user>"为用户名字
+  "<pwd>"为用户密码
+  "<switch>"为启用开关，取值为：1, 启用; 0,不启用，当不启用的时候不需要添加围栏信息
+  "<param>"为路径的具体坐标信息，格式为：x1,y1,x2,y2,x3,y3...
+
+  回应：
+  如果成功，HTTP回应"200 OK";
+  如果失败，HTTP回应"400 OK";
+  其他的值具体看HTTP协议
