@@ -34,16 +34,16 @@
     return YES;
 }
 
-//在 MAMapViewDelegate 协议中添加了如下回调函数
--(NSString*)keyForMap
-{
-    return @"78990a4c7a287711bc100e2e2a40c4aa";
-}
-//在 MASearchDelegate  协议中添加了如下回调函数
--(NSString*)keyForSearch
-{
-    return @"78990a4c7a287711bc100e2e2a40c4aa";
-}
+////在 MAMapViewDelegate 协议中添加了如下回调函数
+//-(NSString*)keyForMap
+//{
+//    return @"78990a4c7a287711bc100e2e2a40c4aa";
+//}
+////在 MASearchDelegate  协议中添加了如下回调函数
+//-(NSString*)keyForSearch
+//{
+//    return @"78990a4c7a287711bc100e2e2a40c4aa";
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

@@ -104,4 +104,15 @@
 }
 
 
++ (void)waringInfo:(NSString *) msgInfo
+{
+    
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示"
+                                                  message:msgInfo
+                                                 delegate:nil
+                                        cancelButtonTitle:nil
+                                        otherButtonTitles:@"确定",nil];
+    [alert show];
+}
+
 @end

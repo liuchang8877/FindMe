@@ -12,6 +12,8 @@
 #import "allConfig.h"
 #import "tool.h"
 #import "ASIHTTPRequest.h"
+#import "MXSMapListViewController.h"
+#import "SBJson.h"
 
 @interface UserLoginViewController ()
 
@@ -69,6 +71,7 @@
     }
 }
 
+
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     // Use when fetching text data
@@ -86,7 +89,37 @@
     //    NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
     //
     //    NSMutableDictionary * dicRetInfo = [jsonDic objectForKey:@"ret"];
+    
     NSLog(@"%d",[request responseStatusCode]);
+    
+    if ([request responseStatusCode] == 200) {
+        // this is mean it is ok
+        
+        SBJsonParser * parser = [[SBJsonParser alloc] init];
+        NSError * error = nil;
+        NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
+        NSMutableArray * ArrRetInfo = [jsonDic objectForKey:@"login"];
+        
+        NSString* tel;
+
+        for (int i = 0 ; i < [ArrRetInfo count]; i++) {
+            
+            tel = [[ArrRetInfo objectAtIndex:i] objectForKey:@"tel"];
+            NSLog(@"setTheLogin---usertel:%@",tel);
+        }
+        //set the user tel
+        [[NSUserDefaults standardUserDefaults] setObject:tel forKey:TEL];
+        
+        MXSMapListViewController *mapList = [[MXSMapListViewController alloc]init];
+        mapList.title = @"功能列表";
+        [self.navigationController pushViewController:mapList animated:YES];
+    
+    } else {
+        // it is wrong  in login 
+
+        [tool waringInfo:@"用户名或密码错误"];
+    
+    }
 
 }
 
@@ -105,16 +138,14 @@
         userInfo *myUser = [[userInfo alloc] init];
         myUser.name = self.nameTextField.text;
         myUser.pwd  = self.pwdTextField.text;
+        [[NSUserDefaults standardUserDefaults] setObject:myUser.name forKey:USER];
+        [[NSUserDefaults standardUserDefaults] setObject:myUser.pwd forKey:PWD];
         [self setTheLogin:myUser];
     
     } else {
     
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                      message:@"用户名密码不能为空"
-                                                     delegate:nil
-                                            cancelButtonTitle:nil
-                                            otherButtonTitles:@"确定",nil];
-		[alert show];
+        // there is null in name or pwd
+        [tool waringInfo:@"用户密码不能为空"];
     
     }
 }

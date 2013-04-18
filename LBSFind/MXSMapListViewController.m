@@ -13,18 +13,29 @@
 #import "ViewController.h"
 #import "BaseSearchViewController.h"
 #import "BaseMapViewController.h"
+#import "tool.h"
+#import "ASIHTTPRequest.h"
+#import "DataModel.h"
+#import "allConfig.h"
+#import "functionViewController.h"
+#import "SBJson.h"
 
 
 
 @interface MXSMapListViewController ()
+{
+    NSMutableArray   *findTelArr;
+
+}
 
 @property (nonatomic, strong) MASearch *search;
+@property (nonatomic, strong) NSMutableArray   *findTelArr;
 
 @end
 
 @implementation MXSMapListViewController
-@synthesize myRequest;
-@synthesize search    = _search;
+@synthesize search     = _search;
+@synthesize findTelArr = _findTelArr;
 
 
 
@@ -32,7 +43,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
         // Custom initialization
+        [self GetTheRelationInfo];
     }
     return self;
 }
@@ -56,12 +69,31 @@
 //        //self.usernameLabel.text = self.user.username;
 //    }
 
+     //[self GetTheRelationInfo];
+}
+
+- (void)GetTheRelationInfo
+{
+    // get the relation
+    userInfo *myUserInfo = [[userInfo alloc] init];
+    
+    myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+    myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+    
+    [self getTheRelation:myUserInfo];
 
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    // set the flag for get relation
+    getOrSetRelationFlag = 1;
+    
+    // init the arr for save the find tel
+    _findTelArr  = [[NSMutableArray alloc] initWithCapacity:2];
+    
     [self.view setBackgroundColor:[UIColor colorWithRed:244.0/255 green:226.0/255 blue:185.0/255 alpha:1]];
     
     //init the left button to back
@@ -77,12 +109,13 @@
     [self setTheRightButton];
     
     //init the data
-    [self initTheAllData];
+    //[self initTheAllData];
     
     [self getTheMapData];
     //init the Map 
-    [self initTheMap];
+    //[self initTheMap];
 }
+
 #pragma mark INIT_MAP
 - (void)initTheMap{
     
@@ -94,14 +127,14 @@
     MACoordinateSpan span = {0.04,0.03};
     MACoordinateRegion region = {center,span};
     [myMainMapView setRegion:region animated:NO];
-
+    
     self.search = [[MASearch alloc] initWithSearchKey:SearchKey Delegate:self];
     
     subViewController = [[BaseMapViewController alloc] init];
     [subViewController setMapView:myMainMapView];
     subSearchController = [[BaseSearchViewController alloc]init];
     [subSearchController setSearch:self.search];
-
+    
 }
 //add the button to  the navigation bar
 - (void)setTheRightButton
@@ -133,7 +166,11 @@
 //    LSAuthenticateViewController *authController = [[LSAuthenticateViewController alloc] initWithNibName:@"LSAuthenticateViewController" bundle:nil];
 //    authController.delegate = self;
 //    [self presentModalViewController:authController animated:YES];
-    //[authController release]; ;
+    //[authController release];
+    
+       //return back
+      [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 //init the table view
@@ -244,17 +281,25 @@
     
 
     [DBHandleDAO createMapListTable];
+    //delete the all info when get relation
+    if (getOrSetRelationFlag) {
+        
+        [DBHandleDAO deleteDataFromMapListTable];
+    }
     
     NSMutableArray *myMapListArr  = [[NSMutableArray alloc] initWithCapacity:5];
     
-    mapList *myMapList = [[mapList alloc]init];
-    myMapList.locaTel = @"13633841517";
-    myMapList.locaDec = @"kaishi";
-    myMapList.locaDate = [NSDate date];
-    myMapList.x = @"34.405840";
-    myMapList.y = @"113.733796";
-    //X:34.405840,Y:113.733796 新郑轩辕皇帝故里
-    [myMapListArr addObject:myMapList];
+    for (int i = 0; i < [_findTelArr count]; i++) {
+        
+        mapList *myMapList = [[mapList alloc]init];
+        myMapList.locaTel = [_findTelArr objectAtIndex:i];
+        myMapList.locaDec = @"kaishi";
+        myMapList.locaDate = [NSDate date];
+        myMapList.x = @"34.405840";
+        myMapList.y = @"113.733796";
+        [myMapListArr addObject:myMapList];
+    
+    }
     
     [DBHandleDAO insertDataToMapListTable:myMapListArr];
     
@@ -311,11 +356,18 @@
 {
 
     NSLog(@"didSelectRowAtIndexPath---row:%d",indexPath.row);
-    
-    ViewController *mapFindView = [[ViewController alloc]init];
-    mapFindView.search = subSearchController.search;
-    [mapFindView setMapView:subViewController.mapView];
-    [self.navigationController pushViewController:mapFindView animated:YES];
+    functionViewController *mapFunctionView = [[functionViewController alloc]init];
+    [self.navigationController pushViewController:mapFunctionView animated:YES];
+    if (indexPath.row < [xzMapArray count]) {
+  
+        mapList *mapListForDidSelected = (mapList*)[xzMapArray objectAtIndex:indexPath.row];
+        // set the find tel
+        [[NSUserDefaults standardUserDefaults] setObject:mapListForDidSelected.locaTel forKey:FINDTEL];
+    }
+//    ViewController *mapFindView = [[ViewController alloc]init];
+//    mapFindView.search = subSearchController.search;
+//    [mapFindView setMapView:subViewController.mapView];
+//    [self.navigationController pushViewController:mapFindView animated:YES];
 
 }
 
@@ -327,6 +379,175 @@
 //    else
 //        return TRUE;
 //}
+
+
+#pragma mark http for setTheRelation
+- (void)setTheRelation:(userInfo *)myUser
+{
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    // se the flag
+    getOrSetRelationFlag = 0;
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=setrelation&user=%@&pwd=%@&tel=%@",URL_IP,URL_PORT,myUser.name,myUser.pwd,myUser.findTel];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"setTheLogin---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"setTheLogin---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+        //        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+        //        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+        
+    } else {
+        
+        NSLog(@"setTheLogin---net is NOT ok");
+        [tool checkNetAlter];
+    }
+}
+
+#pragma mark http for getTheRelation
+- (void)getTheRelation:(userInfo *)myUser
+{
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    // se the flag
+    getOrSetRelationFlag = 1;
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=getrelation&user=%@&pwd=%@",URL_IP,URL_PORT,myUser.name,myUser.pwd];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"getTheRelation---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"getTheRelation---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+        //        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+        //        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+    } else {
+        
+        NSLog(@"getTheRelation---net is NOT ok");
+        [tool checkNetAlter];
+    }
+}
+
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    
+    // set the relation
+    NSString *responseString=[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"requestFinished---responseString:%@",responseString);
+    
+    NSLog(@"%d",[request responseStatusCode]);
+    
+    if (getOrSetRelationFlag) {
+        
+        // get relation
+        if ([request responseStatusCode] == 200) {
+            // this is mean it is ok
+            
+            NSString *responseString=[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+            
+            SBJsonParser * parser = [[SBJsonParser alloc] init];
+            NSError * error = nil;
+            NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
+            NSMutableArray * ArrRetInfo = [jsonDic objectForKey:@"getrelation"];
+            
+            NSString* findTel;
+            
+            //clean the arr
+            [findTelArr removeAllObjects];
+            
+            for (int i = 0 ; i < [ArrRetInfo count]; i++) {
+                
+                findTel     = [[ArrRetInfo objectAtIndex:i] objectForKey:@"tel"];
+                [_findTelArr addObject:findTel];
+            }
+            
+            //init the data
+            [self initTheAllData];
+            
+            //get the data from db
+            [self getTheMapData];
+            
+            //init the Map
+            //[self initTheMap];
+            
+            [myTableView reloadData];
+            
+        } else {
+            
+            // it is wrong  in login
+            [tool waringInfo:@"更新失败"];
+            
+        }
+    
+    } else {
+        
+        if ([request responseStatusCode] == 200) {
+            // this is mean it is ok
+            
+            [tool waringInfo:@"查询到该号码信息"];
+            
+            // Custom initialization
+            [self GetTheRelationInfo];
+            
+            //[myTableView reloadData];
+            
+            //        //init the data
+            //        [self initTheAllData];
+            //
+            //        //get the data from db
+            //        [self getTheMapData];
+            //
+            //        //init the Map
+            //        [self initTheMap];
+            //
+            //        [myTableView reloadData];
+            
+        } else {
+            // it is wrong  in login
+            
+            [tool waringInfo:@"请确认查询号码"];
+            
+        }
+        
+//        //init the data
+//        [self initTheAllData];
+//        
+//        //get the data from db
+//        [self getTheMapData];
+//        
+//        //init the Map
+//        [self initTheMap];
+        [myTableView reloadData];
+    }
+       
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    NSError *error = [request error];
+    NSLog(@"requestFailed---error:%@",error);
+    [tool checkNetAlter];
+}
+
+
 
 #pragma mark search bar
 //start to  search
@@ -347,11 +568,36 @@
 /*search*/
 - (void)doSearch:(UISearchBar *)searchBar{
     
-    NSLog(@"doSearch---%@",searchBar.text);
+    NSLog(@"doSearch---%@,length:%d",searchBar.text,[searchBar.text length]);
 
     //xzMapArray = [NSMutableArray arrayWithArray:[MXSHandleDao getXZMapLocationInfoWithName:searchBar.text]];
+    if ([searchBar.text length] != 11) {
+        // it is not a  phone number
+        
+        [tool waringInfo:@"请确认输入的号码无误"];
+    
+    } else  {
+        
+        //set the relation
+        userInfo *myUserInfo = [[userInfo alloc] init];
+        
+        myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+        myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+        myUserInfo.findTel = searchBar.text;
+        
+        //set the find tel for insert to the table
+        theFindTel = searchBar.text;
+        
+        //remove the arr object and add one
+        [findTelArr removeAllObjects];
+        
+        [_findTelArr addObject:theFindTel];
+        
+        [self setTheRelation:myUserInfo];
 
-    [myTableView reloadData];
+    }
+    
+    //[myTableView reloadData];
 
 }
 
@@ -421,56 +667,6 @@
 //    }
 }
 
-- (void)requestFinished:(ASIHTTPRequest *)request
-{
-    // Use when fetching text data
-    //NSString *responseString = [request responseString];
-    
-    // Use when fetching binary data
-    //NSData *responseData = [request responseData];
-    
-//    NSString *responseString=[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
-//    
-//    NSLog(@"MXSMapListViewController---responseString:%@",responseString);
-//    
-//    SBJsonParser * parser = [[SBJsonParser alloc] init];
-//    NSError * error = nil;
-//    NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
-//    
-//    NSMutableDictionary * dicRetInfo = [jsonDic objectForKey:@"ret"];
-//    NSLog(@"MXSMapListViewController---dicUserInfo:%@",[dicRetInfo objectForKey:@"result"]);
-//    mapInfo *myMap = [[mapInfo alloc] init];
-//    myMapInfoArry = [[NSMutableArray alloc]initWithCapacity:2];
-//    myMap.result = [dicRetInfo objectForKey:@"result"];
-//    myMap.msg = [dicRetInfo objectForKey:@"msg"];
-//    NSLog(@"MXSMapListViewController---Result:%@,Msg:%@",myMap.result,myMap.msg);
-//    [myMapInfoArry addObject:myMap];
-//    for (NSMutableDictionary * dicLoginInfo in [jsonDic objectForKey:@"getmapinfo"])
-//    {
-//        mapInfo *myMapInfo  = [[mapInfo alloc] init];
-//        myMapInfo.mapID  = [dicLoginInfo objectForKey:@"id"];
-//        myMapInfo.mapLongitude  = [dicLoginInfo objectForKey:@"longitude"];
-//        myMapInfo.mapLatitude  = [dicLoginInfo objectForKey:@"latitude"];
-//        myMapInfo.tel  = [dicLoginInfo objectForKey:@"tel"];
-//        myMapInfo.title  = [dicLoginInfo objectForKey:@"title"];
-//        NSLog(@"MXSMapListViewController---id:%@,x:%@,y:%@,tel:%@,title:%@",myMapInfo.mapID,myMapInfo.mapLongitude,myMapInfo.mapLatitude,myMapInfo.tel,myMapInfo.title);
-//        [myMapInfoArry addObject:myMapInfo];
-//    }
-//    
-//    //myMapInfoArry = [NSArray arrayWithArray:mapArray];
-//    [self insertTheInfoToDB];
-//    [SVProgressHUD dismiss];
-}
-
-
-- (void)requestFailed:(ASIHTTPRequest *)request
-{
-//    NSError *error = [request error];
-//    NSLog(@"MXSMapListViewController---error:%@",error);
-//    [SVProgressHUD dismiss];
-//    
-//    [MXSTool checkNetAlter];
-}
 
 // load the info to the db
 - (void)insertTheInfoToDB{

@@ -13,4 +13,5 @@
 
 + (BOOL)checkNetAlter;
 + (BOOL)checkNet;
++ (void)waringInfo:(NSString *) msgInfo;
 @end

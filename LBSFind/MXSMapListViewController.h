@@ -28,9 +28,12 @@
      BaseMapViewController *subViewController;
 
      BaseSearchViewController *subSearchController;
+    
+     NSString *theFindTel;
+    
+     int  getOrSetRelationFlag; 
 }
 
-@property (retain, nonatomic) ASIHTTPRequest  *myRequest;
 @property (weak, nonatomic) IBOutlet UISearchBar *localSearch;
 
 @end

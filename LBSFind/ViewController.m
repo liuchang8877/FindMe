@@ -12,6 +12,8 @@
 #import "DataModel.h"
 #import "ASIHTTPRequest.h"
 #import "allConfig.h"
+#import "SBJson.h"
+
 
 #define PI 3.1415926
 enum{
@@ -21,7 +23,14 @@ enum{
 };
 
 
-@interface ViewController ()
+@interface ViewController () {
+    
+    MAPointAnnotation *saveCircleCenter;
+    double            saveCircleR;
+    int               httpFlag;      //0:location 1:getcircle 2:getrect 3:getroad
+    RectInfo          *mainRectInfo;
+    
+}
 
 @property (nonatomic, strong) NSMutableArray *annotations;
 @property (nonatomic, strong) NSMutableArray *searchOptions;
@@ -33,6 +42,7 @@ enum{
 @property (nonatomic, strong) NSMutableArray *roadAnnotations;
 @property (nonatomic, strong) MAPointAnnotation *startAnnotation;
 @property (nonatomic, strong) MAPointAnnotation *endAnnotation;
+
 
 @end
 
@@ -48,18 +58,234 @@ enum{
 @synthesize roadAnnotations = _roadAnnotations;
 @synthesize startAnnotation = _startAnnotation;
 @synthesize endAnnotation = _endAnnotation;
+@synthesize functionFlag = _functionFlag;
 
 - (void)viewDidLoad
 {
+    //init the flag
+    httpFlag = 0;
+    //init the rectinfo
+    mainRectInfo = [[RectInfo alloc]init];
+    
     [super viewDidLoad];
 
+    [self initTheFunction];
+    
     [self initToolBar];
     
-    [self initGestures];    
+    [self initGestures];
+    
+    [self setTheRightButton];
+    
     [self.view addSubview:mapView];
 
 }
 
+//add the button to  the navigation bar
+- (void)setTheRightButton
+{
+    UIView *buttonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 51, 30)];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.tag = 0;
+    button.frame = CGRectMake(0, 0, 51, 30);
+    //[button setBackgroundImage:[UIImage imageNamed:@"xz_nav_cancel.png"] forState:UIControlStateNormal];
+    //[button setBackgroundImage:[UIImage imageNamed:@"xz_nav_cancel_down.png"] forState:UIControlStateHighlighted];
+    [button setTitle:@"设定" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(onclickRightButton) forControlEvents:UIControlEventTouchUpInside];
+    [buttonView addSubview:button];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:buttonView];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+}
+
+//click right button
+- (void)onclickRightButton
+{
+    // use to update the info about the fenc safepath
+    if ([self.functionFlag integerValue] == 2) {
+        // update the findtel's fenc
+    
+        if (saveCircleR != 0.0 && saveCircleCenter != nil) {
+            NSLog(@"updateTheCirecleInfo---center:%@,R:%f",saveCircleCenter,saveCircleR);
+            userInfo *myUserInfo = [[userInfo alloc] init];
+            //set the info
+            myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+            myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+            myUserInfo.findTel = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+            
+            //update to the server
+            [self updateCircleInfo:saveCircleCenter radius:saveCircleR userInfo:myUserInfo];
+
+        } else {
+        
+            [tool waringInfo:@"圆形围栏信息不全"];
+        }
+        
+    } else if ([self.functionFlag integerValue] == 3) {
+        
+        // update the findtel's fenc Rect
+        
+        if ([mainRectInfo.x1 length] != 0) {
+            
+            userInfo *myUserInfo = [[userInfo alloc] init];
+            //set the info
+            myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+            myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+            myUserInfo.findTel = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+        
+            //update to the server
+            [self updateRectInfo:mainRectInfo userInfo:myUserInfo];
+            
+        } else {
+            
+            [tool waringInfo:@"矩形围栏信息不全"];
+        }
+    
+    } else if ([self.functionFlag integerValue] == 1) {
+        // get the save path and update
+        
+        if ([self.annotations count] >= 2) {
+            
+            userInfo *myUserInfo = [[userInfo alloc] init];
+            //set the info
+            myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+            myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+            myUserInfo.findTel = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+            
+            //update line info to the server
+            [self updateLineInfo:self.annotations userInfo:myUserInfo];
+        
+        } else {
+        
+            [tool waringInfo:@"安全路径信息不全"];
+        }
+    
+    }
+
+    //NSLog(@"update---functionFlag:%d",[self.functionFlag integerValue]);
+}
+
+
+#pragma mark http for updateCircleInfo
+- (void)updateCircleInfo:(MAPointAnnotation *)center radius:(double) circleR userInfo:(userInfo*)myUserInfo
+{
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=setfence&user=%@&pwd=%@&tel=%@&switch=%@&type=%@&param=%f,%f,%f",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel,@"1",@"circle",center.coordinate.longitude,center.coordinate.latitude,circleR];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"setTheLocation---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"setTheLocation---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+        //        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+        //        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+        
+    } else {
+        
+        NSLog(@"setTheLocation---net is NOT ok");
+        [tool checkNetAlter];
+    }
+}
+
+#pragma mark http for updateRectInfo
+- (void)updateRectInfo:(RectInfo *)myRect userInfo:(userInfo*)myUserInfo
+{
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=setfence&user=%@&pwd=%@&tel=%@&switch=%@&type=%@&param=%@,%@,%@,%@,%@,%@,%@,%@",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel,@"1",@"rectangle",myRect.x1,myRect.y1,myRect.x2,myRect.y2,myRect.x3,myRect.y3,myRect.x4,myRect.y4];
+    
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"setTheLocation---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"setTheLocation---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+        //        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+        //        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+        
+    } else {
+        
+        NSLog(@"setTheLocation---net is NOT ok");
+        [tool checkNetAlter];
+    }
+}
+
+
+#pragma mark http for updateLineInfo
+- (void)updateLineInfo:(NSMutableArray *)myLineArr userInfo:(userInfo*)myUserInfo
+{
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=setsafepath&user=%@&pwd=%@&tel=%@&switch=%@&param=",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel,@"1"];
+    
+    for (int i = 0; i < [myLineArr count]; i++) {
+        //add str about the line node to the string
+        
+        MAPointAnnotation *myPointAnn = [myLineArr objectAtIndex:i];
+        
+        NSString *lineX = [NSString stringWithFormat:@"%f",myPointAnn.coordinate.longitude];
+        NSString *lineY = [NSString stringWithFormat:@"%f",myPointAnn.coordinate.latitude];
+        
+        urlStr = [urlStr stringByAppendingString:lineX];
+        urlStr = [urlStr stringByAppendingString:@","];
+        urlStr = [urlStr stringByAppendingString:lineY];
+        
+        if ( i != [myLineArr count] - 1)
+            urlStr = [urlStr stringByAppendingString:@","];
+    }
+    
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"setTheLocation---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"setTheLocation---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+        //        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+        //        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+        
+    } else {
+        
+        NSLog(@"setTheLocation---net is NOT ok");
+        [tool checkNetAlter];
+    }
+}
+
+
+- (void)initTheFunction {
+    
+    //this is the find location
+    if ([self.functionFlag integerValue] == 0) {
+    
+        userInfo *myUserInfo  = [[userInfo alloc] init];
+        myUserInfo.name     = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+        myUserInfo.pwd      = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+        myUserInfo.findTel  = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+        [self findTheLocation:myUserInfo];
+    
+    }
+
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -70,15 +296,28 @@ enum{
 
 - (void)addAnnotationForCoordinate:(CLLocationCoordinate2D)coordinate
 {
-    MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
-    annotation.coordinate = coordinate;
-    annotation.title      = @"取消";
     
-    [self.annotations addObject:annotation];
+    if ([self.functionFlag integerValue] == 0) {
+        
+        MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
+        annotation.coordinate = coordinate;
+        annotation.title      = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+        [self.mapView addAnnotation:annotation];
     
-    [self.pointForOverlay addObject:annotation];
+    } else {
+        
+        MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
+        annotation.coordinate = coordinate;
+        annotation.title      = @"取消";
+        
+        [self.annotations addObject:annotation];
+        
+        [self.pointForOverlay addObject:annotation];
+        
+        [self.mapView addAnnotation:annotation];
+    
+    }
 
-    [self.mapView addAnnotation:annotation];
 }
 
 - (void)reverseRequestCoordinate:(CLLocationCoordinate2D)coordinate
@@ -169,7 +408,8 @@ enum{
             delteTarg = delteTarg + 1;
             [deleteButton addTarget:self action:@selector(deleteAnn:) forControlEvents:UIControlEventTouchUpInside];
             annotationView.rightCalloutAccessoryView = deleteButton;
-            [self addLine];
+            if ([self.functionFlag integerValue] != 0)
+                [self addLine];
         }
         else
         {
@@ -265,6 +505,18 @@ enum{
     
     UIBarButtonItem *itemRect = [[UIBarButtonItem alloc] initWithCustomView:ButtonRect];
     
+    //Line
+    UIButton *ButtonLine = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    ButtonLine.frame = CGRectMake(60, self.view.frame.size.height -100, 50, 30);
+    ButtonLine.backgroundColor = [UIColor clearColor];
+    [ButtonLine setTitle:@"Line" forState:UIControlStateNormal];
+    ButtonLine.titleLabel.font = [UIFont fontWithName:@"helvetica" size:12];
+    [ButtonLine setBackgroundImage:[UIImage imageNamed:@"28.png"] forState:UIControlStateNormal];
+    [self.view addSubview:ButtonLine];
+    [ButtonLine addTarget:self action:@selector(addLine) forControlEvents:UIControlEventTouchDown];
+    
+    UIBarButtonItem *itemLine = [[UIBarButtonItem alloc] initWithCustomView:ButtonLine];
+    
     //Location
     UIButton *ButtonLocation = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     ButtonLocation.frame = CGRectMake(60, self.view.frame.size.height -100, 50, 30);
@@ -289,7 +541,7 @@ enum{
     
     UIBarButtonItem *itemRoute = [[UIBarButtonItem alloc] initWithCustomView:ButtonRoute];
     
-    self.toolbarItems = [NSArray arrayWithObjects:itemCircle,itemRect,itemLocation,itemRoute,nil];
+    self.toolbarItems = [NSArray arrayWithObjects:itemCircle,itemRect,itemLine,itemLocation,itemRoute,nil];
 }
 
 #pragma mark -DRAW electronic fence
@@ -330,6 +582,114 @@ enum{
 //add  the circle
 - (void)addOverlay
 {
+    
+    if ([self.functionFlag integerValue] == 0) {
+        
+        // get server info about the fenc and path
+        [self getFromServerForFencCircle];
+        
+    } else {
+        
+        //when it is not in the “Real time positioning”
+        [self drawTheCircle];
+
+    }
+
+}
+
+- (void)getFromServerForFencCircle
+{
+    // it is in the “Real time positioning”, you have to get fenc
+    userInfo *myUserInfo = [[userInfo alloc]init];
+    //set the info
+    myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+    myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+    myUserInfo.findTel = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+    //get the circleinfo
+    [self getTheCircleInfo:myUserInfo];
+}
+
+- (void)getFromServerForFencRect
+{
+    // it is in the “Real time positioning”, you have to get fenc
+    userInfo *myUserInfo = [[userInfo alloc]init];
+    //set the info
+    myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+    myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+    myUserInfo.findTel = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+    //get the circleinfo
+    [self getTheRectInfo:myUserInfo];
+}
+
+- (void)getFromServerForLine
+{
+    // it is in the “Real time positioning”, you have to get fenc
+    userInfo *myUserInfo = [[userInfo alloc]init];
+    //set the info
+    myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+    myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+    myUserInfo.findTel = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+    //get the line info
+    [self getTheLineInfo:myUserInfo];
+}
+
+#pragma mark http for getTheCircleInfo
+- (void)getTheCircleInfo:(userInfo*)myUserInfo
+{
+    
+    //init the flag for get the location
+    httpFlag = 1;
+    
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=getuser&user=%@&pwd=%@&tel=%@",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel];
+    
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"setTheLocation---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"setTheLocation---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+        //        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+        //        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+        
+    } else {
+        
+        NSLog(@"setTheLocation---net is NOT ok");
+        [tool checkNetAlter];
+    }
+}
+
+#pragma  mark draw cicle
+-(void)drawTheDownloadCircle:(NSString *)circleX circleY:(NSString *)circleY radius:(NSString *)circleR{
+    
+    NSLog(@"addOverlay---START");
+    //self.overlays = [NSMutableArray array];
+    
+    if ([circleX length] != 0 && [circleY length] != 0 && [circleR length] != 0) {
+
+        /* Circle. */
+        MACircle *circle = [MACircle circleWithCenterCoordinate:CLLocationCoordinate2DMake([circleY doubleValue], [circleX doubleValue]) radius:[circleR doubleValue]];
+        //[self.overlays insertObject:circle atIndex:OverlayViewControllerOverlayTypeCircle];
+        [self.mapView addOverlay:circle];
+        
+    } else {
+        
+        NSLog(@"there not have two point!");
+    }
+
+}
+
+#pragma  mark draw cicle
+-(void)drawTheCircle {
+
     NSLog(@"addOverlay---START");
     //self.overlays = [NSMutableArray array];
     
@@ -337,66 +697,221 @@ enum{
         //get the poit for draw circle
         MAPointAnnotation *myPointAnn = [self.annotations objectAtIndex:0];
         MAPointAnnotation *myAtherPoint = [self.annotations objectAtIndex:1];
-        //get the circle R 
+        //get the circle R
         //float longA = fabs(myPointAnn.coordinate.latitude - myAtherPoint.coordinate.latitude);
         //float longB = fabs(myPointAnn.coordinate.longitude - myAtherPoint.coordinate.longitude);
         double circleR = [self getTheDistancey1:myPointAnn.coordinate.longitude x1:myPointAnn.coordinate.latitude y2:myAtherPoint.coordinate.longitude x2:myAtherPoint.coordinate.latitude]*1.22;
-
+        
         NSLog(@"X1:%f,Y1:%f,X2:%f,Y2:%f---R:%f",myPointAnn.coordinate.latitude,myAtherPoint.coordinate.longitude,myAtherPoint.coordinate.latitude,myAtherPoint.coordinate.longitude,circleR);
+        
+        //save the center and  R
+        saveCircleR = circleR;
+        saveCircleCenter = myPointAnn;
+        
         /* Circle. */
         MACircle *circle = [MACircle circleWithCenterCoordinate:CLLocationCoordinate2DMake(myPointAnn.coordinate.latitude, myPointAnn.coordinate.longitude) radius:circleR];
         //[self.overlays insertObject:circle atIndex:OverlayViewControllerOverlayTypeCircle];
         [self.mapView addOverlay:circle];
         
     } else {
-    
+        
         NSLog(@"there not have two point!");
+    }
+
+
+}
+
+#pragma mark http for getTheRectInfo
+- (void)getTheRectInfo:(userInfo*)myUserInfo
+{
+    
+    //init the flag for get the location
+    httpFlag = 2;
+    
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=getuser&user=%@&pwd=%@&tel=%@",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel];
+    
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"setTheLocation---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"setTheLocation---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+        //        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+        //        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+        
+    } else {
+        
+        NSLog(@"setTheLocation---net is NOT ok");
+        [tool checkNetAlter];
     }
 }
 
 // add the Rect
 - (void)addRect
 {
+    if ([self.functionFlag integerValue] == 0) {
+        
+        [self getFromServerForFencRect];
     
+    } else {
+        
+        // draw the rect info
+        [self drawTheRect];
+    }
+
+}
+
+#pragma mark Draw the rect
+- (void)drawTheRect
+{
     if ([self.annotations  count] >= 2) {
         //get the poit for draw circle
         MAPointAnnotation *myPointAnn = [self.annotations objectAtIndex:0];
         MAPointAnnotation *myAtherPoint = [self.annotations objectAtIndex:1];
         
-        float x1 = myPointAnn.coordinate.latitude;
-        float y1 = myPointAnn.coordinate.longitude;
-        float x2 = myAtherPoint.coordinate.latitude;
-        float y2 = myAtherPoint.coordinate.longitude;
+        float y1 = myPointAnn.coordinate.latitude;
+        float x1 = myPointAnn.coordinate.longitude;
+        float y2 = myAtherPoint.coordinate.latitude;
+        float x2 = myAtherPoint.coordinate.longitude;
         /* Polygon. */
         CLLocationCoordinate2D coordinates[5];
-        coordinates[0].latitude = x1;
-        coordinates[0].longitude = y1;
-    
-        coordinates[1].latitude = x2;
-        coordinates[1].longitude = y1;
-    
-        coordinates[2].latitude = x2;
-        coordinates[2].longitude = y2;
-    
-        coordinates[3].latitude = x1;
-        coordinates[3].longitude = y2;
-    
-        coordinates[4].latitude = x1;
-        coordinates[4].longitude = y1;
+        coordinates[0].latitude = y1;
+        coordinates[0].longitude = x1;
+        
+        coordinates[1].latitude = y2;
+        coordinates[1].longitude = x1;
+        
+        coordinates[2].latitude = y2;
+        coordinates[2].longitude = x2;
+        
+        coordinates[3].latitude = y1;
+        coordinates[3].longitude = x2;
+        
+        coordinates[4].latitude = y1;
+        coordinates[4].longitude = x1;
+        
+        //save the rect info in mainRectInfo
+        mainRectInfo.x1 = [NSString stringWithFormat:@"%f",x1];
+        mainRectInfo.y1 = [NSString stringWithFormat:@"%f",y1];
+        mainRectInfo.x2 = [NSString stringWithFormat:@"%f",x2];
+        mainRectInfo.y2 = [NSString stringWithFormat:@"%f",y1];
+        mainRectInfo.x3 = [NSString stringWithFormat:@"%f",x2];
+        mainRectInfo.y3 = [NSString stringWithFormat:@"%f",y2];
+        mainRectInfo.x4 = [NSString stringWithFormat:@"%f",x1];
+        mainRectInfo.y4 = [NSString stringWithFormat:@"%f",y2];
+        
         MAPolygon *polygon = [MAPolygon polygonWithCoordinates:coordinates count:4];
         //[self.overlays insertObject:polygon atIndex:OverlayViewControllerOverlayTypePolygon];
         [self.mapView addOverlay:polygon];
     } else {
-    
+        
         NSLog(@"there not have two point!");
+    }
+
+
+}
+
+#pragma  mark  DRAW download rect
+- (void)drawDownloadRect
+{
+    
+    if ([mainRectInfo.x1 length]!= 0) {
+
+        /* Polygon. */
+        CLLocationCoordinate2D coordinates[5];
+        coordinates[0].latitude  = [mainRectInfo.y1 floatValue];
+        coordinates[0].longitude = [mainRectInfo.x1 floatValue];
+        
+        coordinates[1].latitude  = [mainRectInfo.y2 floatValue];
+        coordinates[1].longitude = [mainRectInfo.x2 floatValue];
+        
+        coordinates[2].latitude  = [mainRectInfo.y3 floatValue];
+        coordinates[2].longitude = [mainRectInfo.x3 floatValue];
+        
+        coordinates[3].latitude  = [mainRectInfo.y4 floatValue];
+        coordinates[3].longitude = [mainRectInfo.x4 floatValue];
+        
+        coordinates[4].latitude  = [mainRectInfo.y1 floatValue];
+        coordinates[4].longitude = [mainRectInfo.x1 floatValue];
+        
+
+        
+        MAPolygon *polygon = [MAPolygon polygonWithCoordinates:coordinates count:4];
+        //[self.overlays insertObject:polygon atIndex:OverlayViewControllerOverlayTypePolygon];
+        [self.mapView addOverlay:polygon];
+        
+    } else {
+        
+        NSLog(@"there not have two point!");
+    }
+
+}
+
+#pragma mark http for getTheLineInfo
+- (void)getTheLineInfo:(userInfo*)myUserInfo
+{
+    
+    //init the flag for get the line
+    httpFlag = 3;
+    
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=getuser&user=%@&pwd=%@&tel=%@",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel];
+    
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"setTheLocation---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"setTheLocation---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+        //        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+        //        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+        
+    } else {
+        
+        NSLog(@"setTheLocation---net is NOT ok");
+        [tool checkNetAlter];
     }
 }
 
+
 //add the polyline
 - (void)addLine {
+    
+    if ([self.functionFlag integerValue] == 0) {
+        
+        [self getFromServerForLine];
+        
+    } else {
+        
+        // draw the line info
+        [self drawTheLine];
+    }
+
+}
+
+#pragma mark draw the line
+- (void)drawTheLine {
 
     CLLocationCoordinate2D coordinates[[self.annotations count]];
     if ([self.annotations count] >= 2) {
+        
         for (int i = 0; i < [self.annotations count]; i++) {
             //remove the overlays line
             [self.mapView removeOverlays:self.overlays];
@@ -404,12 +919,13 @@ enum{
             coordinates[i].latitude = myPointAnn.coordinate.latitude;
             coordinates[i].longitude = myPointAnn.coordinate.longitude;
         }
-
+        
         MAPolyline *myPolyLine = [MAPolyline polylineWithCoordinates:coordinates count:[self.annotations count]];
-        [self.overlays insertObject:myPolyLine atIndex:delteTarg - 2];
+        //[self.overlays insertObject:myPolyLine atIndex:delteTarg - 2];
         [self.mapView addOverlay:myPolyLine];
+        
     } else {
-    
+        
         NSLog(@"there not have two point!");
     }
 }
@@ -549,10 +1065,11 @@ enum{
         [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate];
         NSLog(@"x:%f---y:%f",self.mapView.userLocation.coordinate.latitude,self.mapView.userLocation.coordinate.longitude);
         userLocation *myLocation = [[userLocation alloc] init];
-        myLocation.tel = @"13633841518";
+        
+        myLocation.tel = [[NSUserDefaults standardUserDefaults] objectForKey:TEL];
         myLocation.x = [NSString stringWithFormat:@"%f",mapView.userLocation.coordinate.longitude];
         myLocation.y = [NSString stringWithFormat:@"%f",mapView.userLocation.coordinate.latitude];
-        [self setTheLocation:myLocation];
+       // [self setTheLocation:myLocation];
         
         
     }
@@ -599,6 +1116,302 @@ enum{
     
     NSLog(@"userLocationRequestFinished---responseString:%@",responseString);
     
+    
+    if ([self.functionFlag integerValue] == 0) {
+        if (httpFlag == 0) {
+
+            [self HttpFinishedForGetLocation:request];
+            
+        } else if (httpFlag == 1) {
+        
+            [self HttpFinishedForGetCircle:request];
+            
+        } else if (httpFlag == 2) {
+        
+            [self HttpFinishedForGetRect:request];
+            
+        } else if (httpFlag == 3) {
+        
+            [self HttpFinishedForGetLine:request];
+        }
+
+    }
+    
+    //    SBJsonParser * parser = [[SBJsonParser alloc] init];
+    //    NSError * error = nil;
+    //    NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
+    //
+    //    NSMutableDictionary * dicRetInfo = [jsonDic objectForKey:@"ret"];
+    
+}
+
+// for the get location
+- (void)HttpFinishedForGetLocation:(ASIHTTPRequest *)request
+{
+    //find the location
+    NSString *responseString=[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser * parser = [[SBJsonParser alloc] init];
+    NSError * error = nil;
+    NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
+    NSMutableArray * ArrRetInfo = [jsonDic objectForKey:@"getuserloc"];
+    
+    NSString* findTel;
+    NSString* findTime;
+    NSString* findLongti;
+    NSString* findLati;
+    
+    for (int i = 0 ; i < [ArrRetInfo count]; i++) {
+        
+        findTel     = [[ArrRetInfo objectAtIndex:i] objectForKey:@"tel"];
+        findTime    = [[ArrRetInfo objectAtIndex:i] objectForKey:@"time"];
+        findLongti  = [[ArrRetInfo objectAtIndex:i] objectForKey:@"longti"];
+        findLati    = [[ArrRetInfo objectAtIndex:i] objectForKey:@"lati"];
+    }
+    
+    CLLocationCoordinate2D coordinate;
+    coordinate.longitude = [findLongti doubleValue];
+    coordinate.latitude  = [findLati doubleValue];
+    [self addAnnotationForCoordinate:coordinate];
+    
+    //NSMutableDictionary * dicRetInfo = [jsonDic objectForKey:@"tel"];
+}
+
+//for get circle info
+- (void)HttpFinishedForGetCircle:(ASIHTTPRequest *)request {
+    
+    //find the circle 
+    NSString *responseString=[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser * parser = [[SBJsonParser alloc] init];
+    NSError * error = nil;
+    NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
+    NSMutableArray * ArrRetInfo = [jsonDic objectForKey:@"getuser"];
+    
+    NSString* findTel;
+    NSString* findFence;
+
+    
+    for (int i = 0 ; i < [ArrRetInfo count]; i++) {
+        
+        findTel     = [[ArrRetInfo objectAtIndex:i] objectForKey:@"tel"];
+        findFence    = [[ArrRetInfo objectAtIndex:i] objectForKey:@"fence"];
+
+    }
+
+    NSArray *listItems = [findFence componentsSeparatedByString:@"|"];
+
+    NSString *centerAndR;
+
+    if ([listItems count] == 3) {
+        
+       centerAndR = [listItems objectAtIndex:2];
+        
+    } else {
+        
+        NSLog(@"listItems---not enough");
+    }
+
+    NSArray *centerAndRArr = [centerAndR componentsSeparatedByString:@","];
+
+    NSString *circleCenterX, *circleCenterY,*circleR;
+
+    if ([centerAndRArr count] == 3){
+        
+        circleCenterX = [centerAndRArr objectAtIndex:0];
+        circleCenterY = [centerAndRArr objectAtIndex:1];
+        circleR       = [centerAndRArr objectAtIndex:2];
+        
+    } else {
+        
+         NSLog(@"centerAndRArr---not enough");
+        
+    }
+    
+    // draw the download circle on the map
+    [self drawTheDownloadCircle:circleCenterX circleY:circleCenterY radius:circleR];
+}
+
+
+//for get Rect info
+- (void)HttpFinishedForGetRect:(ASIHTTPRequest *)request {
+    
+    //find the Rect
+    NSString *responseString=[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser * parser = [[SBJsonParser alloc] init];
+    NSError * error = nil;
+    NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
+    NSMutableArray * ArrRetInfo = [jsonDic objectForKey:@"getuser"];
+    
+    NSString* findTel;
+    NSString* findFence;
+    
+    
+    for (int i = 0 ; i < [ArrRetInfo count]; i++) {
+        
+        findTel     = [[ArrRetInfo objectAtIndex:i] objectForKey:@"tel"];
+        findFence    = [[ArrRetInfo objectAtIndex:i] objectForKey:@"fence"];
+        
+    }
+    
+    NSArray *listItems = [findFence componentsSeparatedByString:@"|"];
+    
+    NSString *centerAndR;
+    
+    if ([listItems count] == 3) {
+        
+        centerAndR = [listItems objectAtIndex:2];
+        
+    } else {
+        
+        NSLog(@"listItems---not enough");
+    }
+    
+    NSArray *myRectInfo = [centerAndR componentsSeparatedByString:@","];
+    
+    //NSString *circleCenterX, *circleCenterY,*circleR;
+    
+    if ([myRectInfo count] == 8){
+        
+        mainRectInfo.x1 = [myRectInfo objectAtIndex:0];
+        mainRectInfo.y1 = [myRectInfo objectAtIndex:1];
+        mainRectInfo.x2 = [myRectInfo objectAtIndex:2];
+        mainRectInfo.y2 = [myRectInfo objectAtIndex:3];
+        mainRectInfo.x3 = [myRectInfo objectAtIndex:4];
+        mainRectInfo.y3 = [myRectInfo objectAtIndex:5];
+        mainRectInfo.x4 = [myRectInfo objectAtIndex:6];
+        mainRectInfo.y4 = [myRectInfo objectAtIndex:7];
+        
+    } else {
+        
+        NSLog(@"myRectInfo---not enough");
+        
+    }
+    
+    // draw the download Rect on the map
+    [self drawDownloadRect];
+}
+
+
+//for get Line info
+- (void)HttpFinishedForGetLine:(ASIHTTPRequest *)request {
+    
+    //find the Rect
+    NSString *responseString=[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    
+    SBJsonParser * parser = [[SBJsonParser alloc] init];
+    NSError * error = nil;
+    NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
+    NSMutableArray * ArrRetInfo = [jsonDic objectForKey:@"getuser"];
+    
+    NSString* findTel;
+    NSString* findPath;
+    
+    
+    for (int i = 0 ; i < [ArrRetInfo count]; i++) {
+        
+        findTel     = [[ArrRetInfo objectAtIndex:i] objectForKey:@"tel"];
+        findPath    = [[ArrRetInfo objectAtIndex:i] objectForKey:@"safepath"];
+        
+    }
+    
+    NSArray *listItems = [findPath componentsSeparatedByString:@"|"];
+    
+    NSString *centerAndR;
+    
+    if ([listItems count] == 2) {
+        
+        centerAndR = [listItems objectAtIndex:1];
+        
+    } else {
+        
+        NSLog(@"listItems---not enough");
+    }
+    
+    NSArray *myLineInfo = [centerAndR componentsSeparatedByString:@","];
+    
+    //NSString *circleCenterX, *circleCenterY,*circleR;
+    
+    if ([myLineInfo count] != 0){
+        
+        for (int i = 0 ; i < [myLineInfo count] - 1; ) {
+            
+            MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
+            
+            // set the coordinate 
+            CLLocationCoordinate2D coordinate;
+            coordinate.longitude = [[myLineInfo objectAtIndex:i] doubleValue];
+            coordinate.latitude  = [[myLineInfo objectAtIndex:i+1] doubleValue];
+            annotation.coordinate = coordinate;
+            annotation.title      = @"取消";
+            
+            [self.annotations addObject:annotation];
+            
+            i  =  i + 2;
+        }
+        
+    } else {
+        
+        NSLog(@"myLineInfo---not enough");
+        
+    }
+    
+    // draw the download Line on the map
+    [self drawTheLine];
+}
+
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    NSError *error = [request error];
+    NSLog(@"setTheLogin---error:%@",error);
+    [tool checkNetAlter];
+}
+
+#pragma mark http for findTheLocation
+- (void)findTheLocation:(userInfo *)myUserInfo
+{
+    //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
+ 
+    //init the flag for get the location
+    httpFlag = 0;
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=getuserloc&user=%@&pwd=%@&tel=%@&type=now&begin=NULL&end=NULL",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    ASIHTTPRequest *myRequest;
+    NSLog(@"setTheLocation---url:%@",url);
+    if ([tool checkNet])
+    {
+        NSLog(@"setTheLocation---net is ok");
+        [myRequest setDelegate:nil];
+        [myRequest cancel];
+        myRequest = [ASIHTTPRequest requestWithURL:url];
+        [myRequest setDelegate:self];
+//        [myRequest setDidFailSelector:@selector(userLocationRequestFinished:)];
+//        [myRequest setDidFinishSelector:@selector(userLocationRequestFailed:)];
+        [myRequest startAsynchronous];
+        
+    } else {
+        
+        NSLog(@"setTheLocation---net is NOT ok");
+        [tool checkNetAlter];
+    }
+}
+
+- (void)userLocationRequestFinished:(ASIHTTPRequest *)request
+{
+    // Use when fetching text data
+    //NSString *responseString = [request responseString];
+    
+    // Use when fetching binary data
+    //NSData *responseData = [request responseData];
+    
+    NSString *responseString=[[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"userLocationRequestFinished---responseString:%@",responseString);
+    
     //    SBJsonParser * parser = [[SBJsonParser alloc] init];
     //    NSError * error = nil;
     //    NSMutableDictionary *jsonDic = [parser objectWithString:responseString error:&error];
@@ -608,7 +1421,8 @@ enum{
 }
 
 
-- (void)requestFailed:(ASIHTTPRequest *)request
+
+- (void)userLocationRequestFailed:(ASIHTTPRequest *)request
 {
     NSError *error = [request error];
     NSLog(@"userLocationRequestFailed---error:%@",error);
@@ -629,13 +1443,13 @@ enum{
         self.overlays = [NSMutableArray array];
         delteTarg = 0;
         [self initAnnotations];
-        NSTimer *timer;
-        
-        timer = [NSTimer scheduledTimerWithTimeInterval: 30.5
-                                                 target: self
-                                               selector: @selector(setMyLocationStart)
-                                               userInfo: nil
-                                                repeats: YES];
+//        NSTimer *timer;
+//        
+//        timer = [NSTimer scheduledTimerWithTimeInterval: 30.5
+//                                                 target: self
+//                                               selector: @selector(setMyLocationStart)
+//                                               userInfo: nil
+//                                                repeats: YES];
     }
     
     return self;
@@ -649,7 +1463,7 @@ enum{
     self.navigationController.toolbar.barStyle      = UIBarStyleBlack;
     self.navigationController.toolbar.translucent   = YES;
     [self.navigationController setToolbarHidden:NO animated:animated];
-    self.mapView.showsUserLocation = YES;
+    //self.mapView.showsUserLocation = YES;
     //[self.mapView addOverlays:self.overlays];
 }
 

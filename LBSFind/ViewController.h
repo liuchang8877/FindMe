@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MAMapKit.h"
 #import "BaseSearchViewController.h"
+#import "ASIHTTPRequest.h"
 
-@interface ViewController : BaseSearchViewController<MAMapViewDelegate>
+@interface ViewController : BaseSearchViewController<MAMapViewDelegate,ASIHTTPRequestDelegate>
 {
     MAMapView *mapView;
 
@@ -19,4 +20,5 @@
 }
 
 @property (nonatomic, strong) MAMapView *mapView;
+@property (nonatomic, strong) NSString *functionFlag;
 @end

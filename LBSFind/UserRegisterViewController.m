@@ -113,25 +113,19 @@
             myUserInfo.name = name;
             myUserInfo.pwd  = pwd;
             [self setTheRegister:myUserInfo];
+            
         } else  {
 
             //the register pwd is not the same
-            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                          message:@"两次密码不匹配"
-                                                         delegate:nil
-                                                cancelButtonTitle:nil
-                                                otherButtonTitles:@"确定",nil];
-            [alert show];
+            
+            [tool waringInfo:@"两次密码不匹配"];
         }
     
     } else {
+        
         // there are some one is null
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"温馨提示"
-                                                      message:@"注册信息不能为空"
-                                                     delegate:nil
-                                            cancelButtonTitle:nil
-                                            otherButtonTitles:@"确定",nil];
-		[alert show];
+
+        [tool waringInfo:@"注册信息不能为空"];
     
     }
 }

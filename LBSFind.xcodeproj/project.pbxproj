@@ -16,6 +16,8 @@
 		189553A9171C2B400092F5DD /* AMap.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18955399171C2B3F0092F5DD /* AMap.bundle */; };
 		189553AA171C2B400092F5DD /* libMASearchKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 189553A1171C2B3F0092F5DD /* libMASearchKit.a */; };
 		189553AB171C2B400092F5DD /* libMASearchKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 189553A3171C2B3F0092F5DD /* libMASearchKit.a */; };
+		5A1E2F13171D2D4100905F84 /* functionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E2F11171D2D4100905F84 /* functionViewController.m */; };
+		5A1E2F14171D2D4100905F84 /* functionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A1E2F12171D2D4100905F84 /* functionViewController.xib */; };
 		5A7D3CD217165E7400AC728F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3CD117165E7400AC728F /* UIKit.framework */; };
 		5A7D3CD417165E7400AC728F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3CD317165E7400AC728F /* Foundation.framework */; };
 		5A7D3CD617165E7400AC728F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A7D3CD517165E7400AC728F /* CoreGraphics.framework */; };
@@ -145,6 +147,9 @@
 		1895539F171C2B3F0092F5DD /* MASearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASearchResult.h; sourceTree = "<group>"; };
 		189553A1171C2B3F0092F5DD /* libMASearchKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMASearchKit.a; sourceTree = "<group>"; };
 		189553A3171C2B3F0092F5DD /* libMASearchKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMASearchKit.a; sourceTree = "<group>"; };
+		5A1E2F10171D2D4100905F84 /* functionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = functionViewController.h; sourceTree = "<group>"; };
+		5A1E2F11171D2D4100905F84 /* functionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = functionViewController.m; sourceTree = "<group>"; };
+		5A1E2F12171D2D4100905F84 /* functionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = functionViewController.xib; sourceTree = "<group>"; };
 		5A7D3CCE17165E7400AC728F /* LBSFind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LBSFind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A7D3CD117165E7400AC728F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5A7D3CD317165E7400AC728F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -481,6 +486,16 @@
 			path = "Release-iphonesimulator";
 			sourceTree = "<group>";
 		};
+		5A1E2F0F171D2CF300905F84 /* function */ = {
+			isa = PBXGroup;
+			children = (
+				5A1E2F10171D2D4100905F84 /* functionViewController.h */,
+				5A1E2F11171D2D4100905F84 /* functionViewController.m */,
+				5A1E2F12171D2D4100905F84 /* functionViewController.xib */,
+			);
+			name = function;
+			sourceTree = "<group>";
+		};
 		5A53FCFD171938F1004649F6 /* login */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,6 +550,7 @@
 		5A7D3CD717165E7400AC728F /* LBSFind */ = {
 			isa = PBXGroup;
 			children = (
+				5A1E2F0F171D2CF300905F84 /* function */,
 				5A7D3EA11716898100AC728F /* DBOperation */,
 				5A7D3E9F171688A000AC728F /* global */,
 				5A7D3EB6171695EE00AC728F /* Map */,
@@ -860,6 +876,7 @@
 				189553A6171C2B3F0092F5DD /* AMap.bundle in Resources */,
 				189553A9171C2B400092F5DD /* AMap.bundle in Resources */,
 				1891978F171C3389004F06A2 /* LICENSE 下午9.03.00.txt in Resources */,
+				5A1E2F14171D2D4100905F84 /* functionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,6 +937,7 @@
 				5AB8CCF3171C0D1900605AED /* SBJsonWriter.m in Sources */,
 				5AB8CCFA171C175900605AED /* UserLoginViewController.m in Sources */,
 				5AB8CCFC171C175900605AED /* UserRegisterViewController.m in Sources */,
+				5A1E2F13171D2D4100905F84 /* functionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1024,12 +1042,12 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "LBSFind/LBSFind-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphonesimulator\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphoneos\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphonesimulator\"",
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (
@@ -1052,12 +1070,12 @@
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "LBSFind/LBSFind-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphonesimulator\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphoneos\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphonesimulator\"",
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (

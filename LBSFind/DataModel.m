@@ -36,5 +36,27 @@
 @synthesize tel;
 @synthesize pwd;
 @synthesize anPwd;
+@synthesize findTel;
+
+@end
+
+@implementation RectInfo
+
+@synthesize x1;
+@synthesize y1;
+@synthesize x2;
+@synthesize y2;
+@synthesize x3;
+@synthesize y3;
+@synthesize x4;
+@synthesize y4;
+
+@end
+
+
+@implementation LineNodeInfo
+
+@synthesize x;
+@synthesize y;
 
 @end
