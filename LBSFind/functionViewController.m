@@ -40,7 +40,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        [self initTheMap];
+        //[self initTheMap];
         
     }
     return self;
@@ -62,6 +62,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Custom initialization
+    [self initTheMap];
     
     // Do any additional setup after loading the view from its nib.
     //openOrCloseUserLocationUpdate = [[NSUserDefaults standardUserDefaults] integerForKey: OPEN_CLOSE_LOCATION];
@@ -104,10 +107,10 @@
     //myMainMapView.mapType = MAMapTypeStandard;
     myMainMapView.delegate = self;
     
-    CLLocationCoordinate2D center = {39.91669,116.39716};
-    MACoordinateSpan span = {0.04,0.03};
-    MACoordinateRegion region = {center,span};
-    [myMainMapView setRegion:region animated:NO];
+    //CLLocationCoordinate2D center = {39.91669,116.39716};
+    //MACoordinateSpan span = {0.04,0.03};
+    //MACoordinateRegion region = {center,span};
+    //[myMainMapView setRegion:region animated:NO];
     
     self.search = [[MASearch alloc] initWithSearchKey:SearchKey Delegate:self];
     

@@ -1041,13 +1041,14 @@
 				GCC_PREFIX_HEADER = "LBSFind/LBSFind-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "LBSFind/LBSFind-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (
@@ -1069,13 +1070,14 @@
 				GCC_PREFIX_HEADER = "LBSFind/LBSFind-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "LBSFind/LBSFind-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphoneos\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/2D/Release-iphonesimulator\"",
-					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
 					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/search/Release-iphonesimulator\"",
+					"\"$(SRCROOT)/LBSFind/AMap_iOS_API_Lib_V2.0.4/3D/Release-iphonesimulator\"",
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = (

@@ -29,6 +29,8 @@ enum{
     double            saveCircleR;
     int               httpFlag;      //0:location 1:getcircle 2:getrect 3:getroad
     RectInfo          *mainRectInfo;
+
+    int               closeFencOrPath;  // 0:close Fenc ,1:close Path, 3 not
     
 }
 
@@ -66,6 +68,8 @@ enum{
     httpFlag = 0;
     //init the rectinfo
     mainRectInfo = [[RectInfo alloc]init];
+    //init close flag
+    closeFencOrPath  = 3; // not close
     
     [super viewDidLoad];
 
@@ -114,7 +118,7 @@ enum{
             
             //update to the server
             [self updateCircleInfo:saveCircleCenter radius:saveCircleR userInfo:myUserInfo];
-
+            
         } else {
         
             [tool waringInfo:@"圆形围栏信息不全"];
@@ -164,13 +168,73 @@ enum{
     //NSLog(@"update---functionFlag:%d",[self.functionFlag integerValue]);
 }
 
+-  (void)closeTheFenc {
+    
+    
+    closeFencOrPath = 0;
+    
+    userInfo *myUserInfo = [[userInfo alloc] init];
+    //set the info
+    myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+    myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+    myUserInfo.findTel = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+    
+    if (closeFencOrPath) {
+        
+        //update line info to the server  close it
+        [self updateLineInfo:self.annotations userInfo:myUserInfo];
+        
+    } else {
+        
+        //update to the server
+        [self updateCircleInfo:saveCircleCenter radius:saveCircleR userInfo:myUserInfo];
+    }
+
+
+}
+
+-  (void)closeTheLine {
+    
+    
+    closeFencOrPath = 1;
+    
+    userInfo *myUserInfo = [[userInfo alloc] init];
+    //set the info
+    myUserInfo.name = [[NSUserDefaults standardUserDefaults] objectForKey:USER];
+    myUserInfo.pwd = [[NSUserDefaults standardUserDefaults] objectForKey:PWD];
+    myUserInfo.findTel = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+    
+    if (closeFencOrPath) {
+        
+        //update line info to the server  close it
+        [self updateLineInfo:self.annotations userInfo:myUserInfo];
+        
+    } else {
+        
+        //update to the server
+        [self updateCircleInfo:saveCircleCenter radius:saveCircleR userInfo:myUserInfo];
+    }
+    
+    
+}
 
 #pragma mark http for updateCircleInfo
 - (void)updateCircleInfo:(MAPointAnnotation *)center radius:(double) circleR userInfo:(userInfo*)myUserInfo
 {
     //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=setfence&user=%@&pwd=%@&tel=%@&switch=%@&type=%@&param=%f,%f,%f",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel,@"1",@"circle",center.coordinate.longitude,center.coordinate.latitude,circleR];
+    NSString  *closeFlag;
+    
+    if (closeFencOrPath != 3) {
+        
+        closeFlag = @"0";
+        
+    } else {
+        
+        closeFlag = @"1";
+    }
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=setfence&user=%@&pwd=%@&tel=%@&switch=%@&type=%@&param=%f,%f,%f",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel,closeFlag,@"circle",center.coordinate.longitude,center.coordinate.latitude,circleR];
     NSURL *url = [NSURL URLWithString:urlStr];
     
     ASIHTTPRequest *myRequest;
@@ -230,7 +294,18 @@ enum{
 {
     //[SVProgressHUD showWithStatus:@"数据加载中..." maskType:SVProgressHUDMaskTypeGradient];
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=setsafepath&user=%@&pwd=%@&tel=%@&switch=%@&param=",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel,@"1"];
+    NSString  *closeFlag;
+    
+    if (closeFencOrPath != 3) {
+        
+        closeFlag = @"0";
+        
+    } else {
+        
+        closeFlag = @"1";
+    }
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://%@:%@/test/lbs/do.php?action=setsafepath&user=%@&pwd=%@&tel=%@&switch=%@&param=",URL_IP,URL_PORT,myUserInfo.name,myUserInfo.pwd,myUserInfo.findTel,closeFlag];
     
     for (int i = 0; i < [myLineArr count]; i++) {
         //add str about the line node to the string
@@ -365,14 +440,19 @@ enum{
 
 - (void)longPressGesture:(UILongPressGestureRecognizer *)gestureRecognizer
 {
-    if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
-    {
-        CLLocationCoordinate2D coordinate = [self.mapView convertPoint:[gestureRecognizer locationInView:self.view] toCoordinateFromView:self.view];
+    if ([self.functionFlag integerValue] != 0) {
         
-        [self addAnnotationForCoordinate:coordinate];
+        if (gestureRecognizer.state == UIGestureRecognizerStateBegan)
+        {
+            CLLocationCoordinate2D coordinate = [self.mapView convertPoint:[gestureRecognizer locationInView:self.view] toCoordinateFromView:self.view];
+            
+            [self addAnnotationForCoordinate:coordinate];
+            
+            //[self reverseRequestCoordinate:coordinate];
+        }
         
-        //[self reverseRequestCoordinate:coordinate];
     }
+
 }
 
 #pragma mark - MASearchDelegate
@@ -529,7 +609,7 @@ enum{
     
     UIBarButtonItem *itemLocation = [[UIBarButtonItem alloc] initWithCustomView:ButtonLocation];
     
-    //Route
+    //Route not add first
     UIButton *ButtonRoute = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     ButtonRoute.frame = CGRectMake(60, self.view.frame.size.height -100, 50, 30);
     ButtonRoute.backgroundColor = [UIColor clearColor];
@@ -541,7 +621,31 @@ enum{
     
     UIBarButtonItem *itemRoute = [[UIBarButtonItem alloc] initWithCustomView:ButtonRoute];
     
-    self.toolbarItems = [NSArray arrayWithObjects:itemCircle,itemRect,itemLine,itemLocation,itemRoute,nil];
+    //CloseFenc
+    UIButton *ButtonCloseFenc = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    ButtonCloseFenc.frame = CGRectMake(60, self.view.frame.size.height -100, 50, 30);
+    ButtonCloseFenc.backgroundColor = [UIColor clearColor];
+    [ButtonCloseFenc setTitle:@"reFenc" forState:UIControlStateNormal];
+    ButtonCloseFenc.titleLabel.font = [UIFont fontWithName:@"helvetica" size:12];
+    [ButtonCloseFenc setBackgroundImage:[UIImage imageNamed:@"28.png"] forState:UIControlStateNormal];
+    [self.view addSubview:ButtonRoute];
+    [ButtonCloseFenc addTarget:self action:@selector(closeTheFenc) forControlEvents:UIControlEventTouchDown];
+    
+    UIBarButtonItem *itemButtonCloseFenc = [[UIBarButtonItem alloc] initWithCustomView:ButtonCloseFenc];
+    
+    //Route not add first
+    UIButton *ButtonCloseLine = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    ButtonCloseLine.frame = CGRectMake(60, self.view.frame.size.height -100, 50, 30);
+    ButtonCloseLine.backgroundColor = [UIColor clearColor];
+    [ButtonCloseLine setTitle:@"reLine" forState:UIControlStateNormal];
+    ButtonCloseLine.titleLabel.font = [UIFont fontWithName:@"helvetica" size:12];
+    [ButtonCloseLine setBackgroundImage:[UIImage imageNamed:@"28.png"] forState:UIControlStateNormal];
+    [self.view addSubview:ButtonRoute];
+    [ButtonCloseLine addTarget:self action:@selector(closeTheLine) forControlEvents:UIControlEventTouchDown];
+    
+    UIBarButtonItem *itemCloseLine = [[UIBarButtonItem alloc] initWithCustomView:ButtonCloseLine];
+    
+    self.toolbarItems = [NSArray arrayWithObjects:itemCircle,itemRect,itemLine,itemButtonCloseFenc,itemCloseLine,nil];
 }
 
 #pragma mark -DRAW electronic fence
@@ -588,11 +692,14 @@ enum{
         // get server info about the fenc and path
         [self getFromServerForFencCircle];
         
-    } else {
+    } else if ([self.functionFlag integerValue] == 2) {
         
         //when it is not in the “Real time positioning”
         [self drawTheCircle];
 
+    } else {
+    
+        [tool waringInfo:@"此处无法设置圆形围栏"];
     }
 
 }
@@ -761,11 +868,15 @@ enum{
     if ([self.functionFlag integerValue] == 0) {
         
         [self getFromServerForFencRect];
-    
-    } else {
+        
+    } else if ([self.functionFlag integerValue] == 3){
         
         // draw the rect info
         [self drawTheRect];
+        
+    } else {
+    
+        [tool waringInfo:@"此处不能设置矩形围栏"];
     }
 
 }
@@ -898,10 +1009,14 @@ enum{
         
         [self getFromServerForLine];
         
-    } else {
+    } else if ([self.functionFlag integerValue] == 1){
         
         // draw the line info
         [self drawTheLine];
+        
+    } else {
+    
+        //[tool waringInfo:@"此处无法设置安全路径"];
     }
 
 }
@@ -1118,6 +1233,7 @@ enum{
     
     
     if ([self.functionFlag integerValue] == 0) {
+        
         if (httpFlag == 0) {
 
             [self HttpFinishedForGetLocation:request];
@@ -1126,15 +1242,41 @@ enum{
         
             [self HttpFinishedForGetCircle:request];
             
+            //[tool waringInfo:@"设置圆形围栏成功！"];
+            
         } else if (httpFlag == 2) {
         
             [self HttpFinishedForGetRect:request];
             
+            //[tool waringInfo:@"设置矩形围栏成功！"];
+            
         } else if (httpFlag == 3) {
         
             [self HttpFinishedForGetLine:request];
+            
+            //[tool waringInfo:@"设置安全路径成功！"];
         }
 
+    } else if ([self.functionFlag integerValue] == 1) {
+        
+        if ([request responseStatusCode] == 200) {
+            
+            [tool waringInfo:@"上传安全路径成功！"];
+        }
+    
+    } else if ([self.functionFlag integerValue] == 2) {
+    
+        if ([request responseStatusCode] == 200) {
+            
+            [tool waringInfo:@"上传圆形围栏成功！"];
+        }
+        
+    } else if ([self.functionFlag integerValue] == 3) {
+    
+        if ([request responseStatusCode] == 200) {
+            
+            [tool waringInfo:@"上传矩形围栏成功！"];
+        }
     }
     
     //    SBJsonParser * parser = [[SBJsonParser alloc] init];
@@ -1476,6 +1618,7 @@ enum{
     //[self.mapView removeObserver:self forKeyPath:@"showsUserLocation"];
     
     [super viewDidDisappear:animated];
+
 }
 
 #pragma mark - viewForOverlay
@@ -1513,6 +1656,5 @@ enum{
     
     return nil;
 }
-
 
 @end
