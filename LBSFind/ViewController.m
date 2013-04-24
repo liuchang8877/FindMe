@@ -1585,13 +1585,13 @@ enum{
         self.overlays = [NSMutableArray array];
         delteTarg = 0;
         [self initAnnotations];
-//        NSTimer *timer;
-//        
-//        timer = [NSTimer scheduledTimerWithTimeInterval: 30.5
-//                                                 target: self
-//                                               selector: @selector(setMyLocationStart)
-//                                               userInfo: nil
-//                                                repeats: YES];
+        NSTimer *timer;
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval: 30.5
+                                                 target: self
+                                               selector: @selector(initTheFunction)
+                                               userInfo: nil
+                                                repeats: YES];
     }
     
     return self;
