@@ -377,6 +377,11 @@ enum{
         MAPointAnnotation *annotation = [[MAPointAnnotation alloc] init];
         annotation.coordinate = coordinate;
         annotation.title      = [[NSUserDefaults standardUserDefaults] objectForKey:FINDTEL];
+        //add for addline
+        [self.annotations addObject:annotation];
+        
+        [self.pointForOverlay addObject:annotation];
+        
         [self.mapView addAnnotation:annotation];
     
     } else {
@@ -488,8 +493,11 @@ enum{
             delteTarg = delteTarg + 1;
             [deleteButton addTarget:self action:@selector(deleteAnn:) forControlEvents:UIControlEventTouchUpInside];
             annotationView.rightCalloutAccessoryView = deleteButton;
-            if ([self.functionFlag integerValue] != 0)
-                [self addLine];
+            //if ([self.functionFlag integerValue] != 0)
+            //    [self addLine];
+
+            // for path now
+            [self drawTheLine];
         }
         else
         {
